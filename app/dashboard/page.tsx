@@ -50,6 +50,7 @@ import { SpendingHeatmap } from "@/components/spending-heatmap"
 import { TopTokensChart } from "@/components/top-tokens-chart"
 import { WhaleTransferPlot } from "@/components/whale-transfer-plot"
 import { AnomalyAlertList } from "@/components/anomaly-alert-list"
+import { ContractDashboard } from "@/components/smart-contract/ContractDashboard"
 import { getBehaviorInsights, getAIRecommendation, getAnomalyAlerts } from "@/sdk"
 
 // Define types for AI Insight and Behavior Data
@@ -336,7 +337,7 @@ export default function Dashboard() {
 
         {/* Main Content */}
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 bg-slate-100 p-1 rounded-lg">
+          <TabsList className="grid w-full grid-cols-6 bg-slate-100 p-1 rounded-lg">
             <TabsTrigger value="overview" className="data-[state=active]:bg-white data-[state=active]:text-slate-900">
               <Activity className="h-4 w-4 mr-2" />
               Live Data
@@ -344,6 +345,10 @@ export default function Dashboard() {
             <TabsTrigger value="insights" className="data-[state=active]:bg-white data-[state=active]:text-slate-900">
               <Bot className="h-4 w-4 mr-2" />
               AI Insights
+            </TabsTrigger>
+            <TabsTrigger value="contracts" className="data-[state=active]:bg-white data-[state=active]:text-slate-900">
+              <Database className="h-4 w-4 mr-2" />
+              Smart Contracts
             </TabsTrigger>
             <TabsTrigger value="alerts" className="data-[state=active]:bg-white data-[state=active]:text-slate-900">
               <Bell className="h-4 w-4 mr-2" />
@@ -535,6 +540,11 @@ export default function Dashboard() {
 
             {/* AI Recommendation Panel */}
             <AIRecommendationPanel walletAddress={selectedWallet} />
+          </TabsContent>
+
+          {/* Smart Contracts Tab - Solidity Integration */}
+          <TabsContent value="contracts" className="space-y-6">
+            <ContractDashboard walletAddress={selectedWallet} />
           </TabsContent>
 
           {/* AI Insights Tab - Comprehensive Analysis */}

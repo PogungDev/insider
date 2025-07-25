@@ -6,7 +6,16 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "contracts:compile": "cd contracts && npx hardhat compile",
+    "contracts:test": "cd contracts && npx hardhat test",
+    "contracts:deploy:localhost": "cd contracts && npx hardhat run scripts/deploy.js --network localhost",
+    "contracts:deploy:sepolia": "cd contracts && npx hardhat run scripts/deploy.js --network sepolia",
+    "contracts:deploy:sei-testnet": "cd contracts && npx hardhat run scripts/deploy.js --network sei-testnet",
+    "contracts:deploy:sei-mainnet": "cd contracts && npx hardhat run scripts/deploy.js --network sei-mainnet",
+    "contracts:verify": "cd contracts && npx hardhat verify",
+    "contracts:node": "cd contracts && npx hardhat node",
+    "contracts:interact": "cd contracts && node scripts/interact.js"
   },
   "dependencies": {
     "@ai-sdk/openai": "latest",
@@ -60,7 +69,12 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "latest",
-    "zod": "^3.24.1"
+    "zod": "^3.24.1",
+    "ethers": "^6.8.1",
+    "@metamask/detect-provider": "^2.0.0",
+    "wagmi": "^2.5.7",
+    "viem": "^2.7.13",
+    "@tanstack/react-query": "^5.28.6"
   },
   "devDependencies": {
     "@types/node": "^22",
@@ -68,6 +82,18 @@
     "@types/react-dom": "^19",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5"
+    "typescript": "^5",
+    "hardhat": "^2.19.4",
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.3",
+    "@typechain/hardhat": "^9.1.0",
+    "@typechain/ethers-v6": "^0.5.1",
+    "typechain": "^8.3.2",
+    "hardhat-gas-reporter": "^1.0.9",
+    "solidity-coverage": "^0.8.5",
+    "@types/mocha": "^10.0.6",
+    "@types/chai": "^4.3.11",
+    "chai": "^4.4.1",
+    "mocha": "^10.2.0"
   }
 }
