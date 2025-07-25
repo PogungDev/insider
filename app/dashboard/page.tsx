@@ -1675,13 +1675,44 @@ export default function Dashboard() {
           <div className="space-y-6">
             <Card className="bg-white border border-slate-200">
               <CardHeader>
-                <CardTitle className="text-slate-900">Coming Soon</CardTitle>
-                <CardDescription className="text-slate-500">This feature is under development</CardDescription>
+                <CardTitle className="text-slate-900">Feature Overview</CardTitle>
+                <CardDescription className="text-slate-500">Explore available features and tools</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-12">
-                  <Settings className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-                  <p className="text-slate-500">Feature coming soon...</p>
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <Card className="bg-blue-50 border border-blue-200">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-sm font-medium text-blue-900">Wallet Analysis</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-blue-700">Deep dive into wallet behavior patterns and transaction history</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="bg-green-50 border border-green-200">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-sm font-medium text-green-900">Risk Assessment</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-green-700">AI-powered risk analysis and anomaly detection</p>
+                      </CardContent>
+                    </Card>
+                    <Card className="bg-purple-50 border border-purple-200">
+                      <CardHeader className="pb-3">
+                        <CardTitle className="text-sm font-medium text-purple-900">Portfolio Insights</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-xs text-purple-700">Comprehensive portfolio analysis and optimization</p>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  <div className="text-center py-8">
+                    <Bot className="h-16 w-16 text-blue-600 mx-auto mb-4" />
+                    <h3 className="text-lg font-medium text-slate-900 mb-2">Welcome to Insider Analytics</h3>
+                    <p className="text-sm text-slate-600 max-w-md mx-auto">
+                      Select a feature from the sidebar to begin analyzing wallet behavior, tracking transactions, and discovering insights.
+                    </p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
