@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
-import { ethers } from 'ethers';
-import { useToast } from '@/components/ui/use-toast';
+import { ethers, BrowserProvider, Contract, Signer } from 'ethers';
+import { useToast } from '@/hooks/use-toast';
 
 // Import ABI (this would be generated after contract compilation)
 const INSIDER_ANALYTICS_ABI = [
@@ -37,9 +37,9 @@ const INSIDER_ANALYTICS_ABI = [
 ];
 
 interface UseInsiderContractReturn {
-  contract: ethers.Contract | null;
-  provider: ethers.providers.Web3Provider | null;
-  signer: ethers.Signer | null;
+  contract: Contract | null;
+  provider: BrowserProvider | null;
+  signer: Signer | null;
   account: string | null;
   chainId: number | null;
   isConnected: boolean;
@@ -47,13 +47,13 @@ interface UseInsiderContractReturn {
   error: string | null;
   
   // Contract functions
-  registerWallet: (walletAddress: string) => Promise<ethers.ContractTransaction>;
+  registerWallet: (walletAddress: string) => Promise<any>;
   getWalletRisk: (walletAddress: string) => Promise<any>;
   getWalletAnomalies: (walletAddress: string) => Promise<any[]>;
   getUpcomingUnlocks: (timeframe: number) => Promise<any[]>;
-  updateRiskScore: (walletAddress: string, newScore: number) => Promise<ethers.ContractTransaction>;
-  recordAnomaly: (walletAddress: string, anomalyType: string, severity: number, metadata: string) => Promise<ethers.ContractTransaction>;
-  scheduleTokenUnlock: (token: string, unlockTime: number, amount: string, beneficiary: string, impactScore: number) => Promise<ethers.ContractTransaction>;
+  updateRiskScore: (walletAddress: string, newScore: number) => Promise<any>;
+  recordAnomaly: (walletAddress: string, anomalyType: string, severity: number, metadata: string) => Promise<any>;
+  scheduleTokenUnlock: (token: string, unlockTime: number, amount: string, beneficiary: string, impactScore: number) => Promise<any>;
   
   // Utility functions
   connectWallet: () => Promise<void>;
@@ -65,9 +65,9 @@ interface UseInsiderContractReturn {
 export function useInsiderContract(): UseInsiderContractReturn {
   const { toast } = useToast();
   
-  const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null);
-  const [signer, setSigner] = useState<ethers.Signer | null>(null);
-  const [contract, setContract] = useState<ethers.Contract | null>(null);
+  const [provider, setProvider] = useState<BrowserProvider | null>(null);
+  const [signer, setSigner] = useState<Signer | null>(null);
+  const [contract, setContract] = useState<Contract | null>(null);
   const [account, setAccount] = useState<string | null>(null);
   const [chainId, setChainId] = useState<number | null>(null);
   const [isConnected, setIsConnected] = useState(false);
@@ -86,21 +86,21 @@ export function useInsiderContract(): UseInsiderContractReturn {
 
     try {
       if (typeof window !== 'undefined' && window.ethereum) {
-        const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
-        const web3Signer = web3Provider.getSigner();
+        const web3Provider = new BrowserProvider(window.ethereum);
+        const web3Signer = await web3Provider.getSigner();
         const network = await web3Provider.getNetwork();
         const accounts = await web3Provider.listAccounts();
 
         setProvider(web3Provider);
         setSigner(web3Signer);
-        setChainId(network.chainId);
+        setChainId(Number(network.chainId));
         
         if (accounts.length > 0) {
-          setAccount(accounts[0]);
+          setAccount(accounts[0] as unknown as string);
           setIsConnected(true);
           
           // Initialize contract with signer
-          const contractInstance = new ethers.Contract(
+          const contractInstance = new Contract(
             contractAddress,
             INSIDER_ANALYTICS_ABI,
             web3Signer
@@ -308,7 +308,7 @@ export function useInsiderContract(): UseInsiderContractReturn {
   useEffect(() => {
     if (contract) {
       // Listen for wallet registration events
-      const onWalletRegistered = (wallet: string, timestamp: ethers.BigNumber) => {
+      const onWalletRegistered = (wallet: string, timestamp: bigint) => {
         console.log('Wallet registered:', wallet, timestamp.toString());
         toast({
           title: "Wallet Registered",
@@ -320,22 +320,22 @@ export function useInsiderContract(): UseInsiderContractReturn {
       const onAnomalyDetected = (
         wallet: string, 
         anomalyType: string, 
-        severity: ethers.BigNumber, 
-        timestamp: ethers.BigNumber
+        severity: bigint, 
+        timestamp: bigint
       ) => {
         console.log('Anomaly detected:', { wallet, anomalyType, severity: severity.toString() });
         toast({
           title: "Anomaly Detected",
           description: `${anomalyType} detected for wallet ${wallet.slice(0, 10)}...`,
-          variant: severity.toNumber() >= 4 ? "destructive" : "default"
+          variant: Number(severity) >= 4 ? "destructive" : "default"
         });
       };
 
       // Listen for risk score updates
       const onRiskScoreUpdated = (
         wallet: string, 
-        oldScore: ethers.BigNumber, 
-        newScore: ethers.BigNumber
+        oldScore: bigint, 
+        newScore: bigint
       ) => {
         console.log('Risk score updated:', { wallet, oldScore: oldScore.toString(), newScore: newScore.toString() });
         toast({
@@ -379,8 +379,10 @@ export function useInsiderContract(): UseInsiderContractReturn {
       window.ethereum.on('chainChanged', handleChainChanged);
 
       return () => {
-        window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
-        window.ethereum.removeListener('chainChanged', handleChainChanged);
+        if (window.ethereum) {
+          window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+          window.ethereum.removeListener('chainChanged', handleChainChanged);
+        }
       };
     }
   }, [disconnectWallet, initializeContract]);

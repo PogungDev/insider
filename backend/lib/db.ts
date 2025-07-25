@@ -99,7 +99,7 @@ export const db = {
       } else if (upsert) {
         // Simulate upsert by adding a new item if not found
         const newId = `event-${unlocks.length + 1}`
-        unlocks.push({
+        const newEvent: UnlockEvent = {
           id: newId,
           date: new Date(),
           token: "NEW",
@@ -107,8 +107,9 @@ export const db = {
           usdValue: 0,
           type: "linear",
           status: "PENDING",
-          ...(update as UnlockEvent),
-        })
+          ...update
+        }
+        unlocks.push(newEvent)
       }
     },
     updateMany: (query: (event: UnlockEvent) => boolean, update: Partial<UnlockEvent>) => {

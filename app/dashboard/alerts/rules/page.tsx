@@ -66,7 +66,7 @@ export default function AlertRulesPage() {
     description: '',
     type: 'whale' as AlertRule['type'],
     priority: 'medium' as AlertRule['priority'],
-    conditions: [{ field: '', operator: 'gt' as const, value: '', logicalOperator: undefined }],
+    conditions: [{ field: '', operator: 'gt' as const, value: '', logicalOperator: undefined as 'AND' | 'OR' | undefined }],
     actions: [{ type: 'email' as const, target: '', isEnabled: true }]
   });
 
@@ -150,7 +150,7 @@ export default function AlertRulesPage() {
       description: '',
       type: 'whale',
       priority: 'medium',
-      conditions: [{ field: '', operator: 'gt', value: '', logicalOperator: undefined }],
+      conditions: [{ field: '', operator: 'gt', value: '', logicalOperator: undefined as 'AND' | 'OR' | undefined }],
       actions: [{ type: 'email', target: '', isEnabled: true }]
     });
     setEditingRule(null);
@@ -159,7 +159,7 @@ export default function AlertRulesPage() {
   const addCondition = () => {
     setFormData({
       ...formData,
-      conditions: [...formData.conditions, { field: '', operator: 'gt', value: '', logicalOperator: 'AND' }]
+      conditions: [...formData.conditions, { field: '', operator: 'gt', value: '', logicalOperator: 'AND' as 'AND' | 'OR' | undefined }]
     });
   };
 
@@ -360,9 +360,9 @@ export default function AlertRulesPage() {
                           <Label>Operator</Label>
                           <Select 
                             value={condition.operator} 
-                            onValueChange={(value: AlertCondition['operator']) => {
+                            onValueChange={(value) => {
                               const newConditions = [...formData.conditions];
-                              newConditions[index].operator = value;
+                              newConditions[index].operator = value as any;
                               setFormData({ ...formData, conditions: newConditions });
                             }}
                           >
@@ -427,9 +427,9 @@ export default function AlertRulesPage() {
                           <Label>Action Type</Label>
                           <Select 
                             value={action.type} 
-                            onValueChange={(value: AlertAction['type']) => {
+                            onValueChange={(value) => {
                               const newActions = [...formData.actions];
-                              newActions[index].type = value;
+                              newActions[index].type = value as any;
                               setFormData({ ...formData, actions: newActions });
                             }}
                           >

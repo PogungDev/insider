@@ -66,7 +66,7 @@ const mockAlertSettings: AlertSetting[] = [
 
 export default function WalletProfilePage() {
   const params = useParams()
-  const address = params.address as string
+  const address = params?.address as string
   
   const [alertSettings, setAlertSettings] = useState<AlertSetting[]>(mockAlertSettings)
   const [walletAddress, setWalletAddress] = useState(address || "0x1234...5678")

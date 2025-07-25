@@ -307,14 +307,14 @@ export default function DevScreenerPage() {
                     <TableCell>
                       <div className="flex space-x-1">
                         {wallet.contractVerified ? (
-                          <CheckCircle className="h-4 w-4 text-green-600" title="Contract Verified" />
+                          <Shield className="h-4 w-4 text-green-600" />
                         ) : (
-                          <XCircle className="h-4 w-4 text-red-600" title="Contract Not Verified" />
+                          <AlertTriangle className="h-4 w-4 text-red-600" />
                         )}
                         {wallet.liquidityLocked ? (
-                          <Lock className="h-4 w-4 text-green-600" title="Liquidity Locked" />
+                          <Lock className="h-4 w-4 text-green-600" />
                         ) : (
-                          <AlertTriangle className="h-4 w-4 text-red-600" title="Liquidity Not Locked" />
+                          <AlertTriangle className="h-4 w-4 text-red-600" />
                         )}
                       </div>
                     </TableCell>

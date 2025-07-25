@@ -1,7 +1,5 @@
 // Enhanced SDK for INSIDER - Sei Blockchain Analytics Platform
 
-import { getTransactions } from '@sei-js/core';
-
 interface AIInsight {
   walletAddress: string
   summary: string

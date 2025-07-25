@@ -39,7 +39,7 @@ function getRateLimitKey(request: NextRequest): string {
   }
   
   const forwarded = request.headers.get('x-forwarded-for')
-  const ip = forwarded ? forwarded.split(',')[0] : request.ip || 'unknown'
+  const ip = forwarded ? forwarded.split(',')[0] : request.headers.get('x-real-ip') || 'unknown'
   return `ip:${ip}`
 }
 
@@ -100,7 +100,7 @@ function handleCors(request: NextRequest): NextResponse | null {
   if (request.method === 'OPTIONS') {
     const response = new NextResponse(null, { status: 200 })
     
-    if (origin && origins.includes(origin)) {
+    if (origin && (origins as readonly string[]).includes(origin)) {
       response.headers.set('Access-Control-Allow-Origin', origin)
     }
     
@@ -276,7 +276,7 @@ export function middleware(request: NextRequest) {
   
   // Add CORS headers for allowed origins
   const origin = request.headers.get('origin')
-  if (origin && APP_CONFIG.security.cors.origins.includes(origin)) {
+  if (origin && (APP_CONFIG.security.cors.origins as readonly string[]).includes(origin)) {
     response.headers.set('Access-Control-Allow-Origin', origin)
     response.headers.set('Access-Control-Allow-Credentials', 'true')
   }

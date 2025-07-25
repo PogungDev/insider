@@ -12,6 +12,17 @@ interface WalletData {
   defiInteractions: number
   largestTransfer: number
   activeDaysLastMonth: number
+  devAccumulation?: number
+}
+
+interface AIInsightResponse {
+  summary: string
+  riskScore: number
+  recommendation: "Hold" | "Sell" | "Hedge" | "Buy More"
+  reasoning: string
+  confidence: number
+  rugpullRisk?: number
+  dumpProbability?: number
 }
 
 export async function getAIInsight(walletData: WalletData): Promise<AIInsightResponse> {
@@ -56,18 +67,6 @@ Format as valid JSON only, no additional text.`;
       throw new Error("Invalid AI response structure")
     }
 
-    // Update interface and parsing to include new fields
-    interface AIInsightResponse {
-      summary: string
-      riskScore: number
-      recommendation: "Hold" | "Sell" | "Hedge" | "Buy More"
-      reasoning: string
-      confidence: number
-      rugpullRisk: number
-      dumpProbability: number
-    }
-
-    // In try block, after parsing:
     return {
       summary: aiResponse.summary,
       riskScore: Math.max(0, Math.min(1, aiResponse.riskScore)),
@@ -76,19 +75,6 @@ Format as valid JSON only, no additional text.`;
       confidence: Math.max(0, Math.min(1, aiResponse.confidence || 0.7)),
       rugpullRisk: Math.max(0, Math.min(1, aiResponse.rugpullRisk || 0)),
       dumpProbability: Math.max(0, Math.min(1, aiResponse.dumpProbability || 0))
-    };
-
-    // Update fallback to include new fields
-    const riskScore = calculateFallbackRiskScore(walletData)
-    const recommendation = getFallbackRecommendation(riskScore, walletData)
-
-    return {
-      summary: `Wallet ${walletData.address.substring(0, 8)}... shows ${walletData.transactionCount > 100 ? "high" : "moderate"} activity with ${walletData.defiInteractions} DeFi interactions.`,
-      riskScore,
-      recommendation,
-      reasoning:
-        "AI analysis temporarily unavailable. Using fallback heuristics based on transaction patterns and upcoming unlock events.",
-      confidence: 0.5,
     }
   } catch (error) {
     console.error("AI Engine Error:", error)
@@ -104,6 +90,8 @@ Format as valid JSON only, no additional text.`;
       reasoning:
         "AI analysis temporarily unavailable. Using fallback heuristics based on transaction patterns and upcoming unlock events.",
       confidence: 0.5,
+      rugpullRisk: 0.3,
+      dumpProbability: 0.4
     }
   }
 }

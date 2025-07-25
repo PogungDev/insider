@@ -7,13 +7,13 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Shield, 
   AlertTriangle, 
   TrendingUp, 
   Clock, 
-  Whale, 
+ 
   Activity,
   CheckCircle,
   XCircle,
@@ -297,7 +297,7 @@ export function ContractDashboard({ walletAddress }: ContractDashboardProps) {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center space-x-2">
-                <Whale className="h-4 w-4 text-purple-500" />
+                <TrendingUp className="h-4 w-4 text-purple-500" />
                 <span className="text-sm font-medium">Whale Status</span>
               </div>
               <div className="mt-2">
@@ -486,7 +486,7 @@ export function ContractDashboard({ walletAddress }: ContractDashboardProps) {
                 {walletRisk?.isWhale && (
                   <div className="border rounded-lg p-4">
                     <div className="flex items-center space-x-2 mb-2">
-                      <Whale className="h-4 w-4 text-purple-500" />
+                      <TrendingUp className="h-4 w-4 text-purple-500" />
                       <span className="font-medium">Whale Status Detected</span>
                     </div>
                     <p className="text-sm text-muted-foreground">

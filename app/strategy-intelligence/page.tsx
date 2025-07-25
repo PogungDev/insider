@@ -29,8 +29,8 @@ interface UnlockEventDetail {
 
 export default function StrategyIntelligencePage() {
   const searchParams = useSearchParams()
-  const token = searchParams.get("token")
-  const eventId = searchParams.get("eventId")
+  const token = searchParams?.get("token")
+  const eventId = searchParams?.get("eventId")
   const [eventDetail, setEventDetail] = useState<UnlockEventDetail | undefined>(undefined)
   const [countdown, setCountdown] = useState<string>("")
   const [isAlertSubscribed, setIsAlertSubscribed] = useState(false)
