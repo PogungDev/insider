@@ -63,6 +63,7 @@ import {
   Pie,
   Cell,
 } from "recharts"
+import { MiniChartStrip } from "@/components/mini-chart-strip"
 
 // Define types
 interface SidebarItem {
@@ -267,66 +268,70 @@ export default function Dashboard() {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-slate-900">Global Network Overview</h2>
-            <p className="text-slate-500">Key metrics and insights for Sei ecosystem</p>
+            <p className="text-slate-600">Key metrics and insights for Sei ecosystem</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="bg-white border border-slate-200">
+              <Card className="sei-card-hover">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-slate-600">Total Active Wallets</CardTitle>
-                  <Users className="h-4 w-4 text-slate-400" />
+                  <Users className="h-4 w-4 text-blue-600" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">{mockData.globalKPIs.totalWallets}</div>
-                  <p className="text-xs text-green-600">+15% growth</p>
+                  <Badge className="sei-badge-success">+15% growth</Badge>
+                  <MiniChartStrip data={[{value: 10}, {value: 20}, {value: 15}, {value: 25}]} color="green" />
                 </CardContent>
               </Card>
-              <Card className="bg-white border border-slate-200">
+              <Card className="sei-card-hover">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-slate-600">24h Transaction Volume</CardTitle>
-                  <DollarSign className="h-4 w-4 text-slate-400" />
+                  <DollarSign className="h-4 w-4 text-blue-600" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">{mockData.globalKPIs.totalVolume}</div>
-                  <p className="text-xs text-green-600">+10% increase</p>
+                  <Badge className="sei-badge-info">+10% increase</Badge>
+                  <MiniChartStrip data={[{value: 5}, {value: 15}, {value: 10}, {value: 20}]} color="blue" />
                 </CardContent>
               </Card>
-              <Card className="bg-white border border-slate-200">
+              <Card className="sei-card-hover">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-slate-600">Whale Activity Index</CardTitle>
-                  <TrendingUp className="h-4 w-4 text-slate-400" />
+                  <TrendingUp className="h-4 w-4 text-blue-600" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">{mockData.globalKPIs.activeWhales}</div>
-                  <p className="text-xs text-blue-600">High activity</p>
+                  <Badge className="sei-badge-info">High activity</Badge>
+                  <MiniChartStrip data={[{value: 8}, {value: 12}, {value: 10}, {value: 15}]} color="purple" />
                 </CardContent>
               </Card>
-              <Card className="bg-white border border-slate-200">
+              <Card className="sei-card-hover">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium text-slate-600">Security Alerts</CardTitle>
-                  <Bell className="h-4 w-4 text-slate-400" />
+                  <Bell className="h-4 w-4 text-red-500" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">{mockData.globalKPIs.alertsToday}</div>
-                  <p className="text-xs text-orange-600">Monitor closely</p>
+                  <Badge className="sei-badge-warning">Monitor closely</Badge>
+                  <MiniChartStrip data={[{value: 3}, {value: 6}, {value: 4}, {value: 7}]} color="orange" />
                 </CardContent>
               </Card>
             </div>
 
             {/* Live Transaction Feed */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card className="bg-white border border-slate-200">
+              <Card className="sei-card-hover">
                 <CardHeader>
                   <CardTitle className="text-slate-900">Live Transaction Feed</CardTitle>
-                  <CardDescription className="text-slate-500">Real-time transactions across Sei network</CardDescription>
+                  <CardDescription className="text-slate-600">Real-time transactions across Sei network</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {mockData.recentTransactions.map((tx) => (
-                      <div key={tx.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div key={tx.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
                         <div className="flex items-center space-x-3">
                           <div className={cn(
-                            "w-2 h-2 rounded-full",
-                            tx.type === "transfer" ? "bg-blue-500" :
-                            tx.type === "swap" ? "bg-green-500" : "bg-purple-500"
+                            "w-2 h-2 rounded-full animate-pulse",
+                            tx.type === "transfer" ? "bg-blue-600" :
+                            tx.type === "swap" ? "bg-green-600" : "bg-purple-600"
                           )} />
                           <div>
                             <p className="text-sm font-medium text-slate-900">{tx.from} → {tx.to}</p>
@@ -335,7 +340,7 @@ export default function Dashboard() {
                         </div>
                         <div className="text-right">
                           <p className="text-sm font-medium text-slate-900">{tx.amount}</p>
-                          <Badge variant="outline" className="text-xs">{tx.type}</Badge>
+                          <Badge className="text-xs sei-badge-info">{tx.type}</Badge>
                         </div>
                       </div>
                     ))}
@@ -343,18 +348,18 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-white border border-slate-200">
+              <Card className="sei-card-hover">
                 <CardHeader>
                   <CardTitle className="text-slate-900">Top Whales</CardTitle>
-                  <CardDescription className="text-slate-500">Largest wallet holders by balance</CardDescription>
+                  <CardDescription className="text-slate-600">Largest wallet holders by balance</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {mockData.topWhales.map((whale) => (
-                      <div key={whale.rank} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
+                      <div key={whale.rank} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200">
                         <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                            <span className="text-sm font-bold text-blue-600">#{whale.rank}</span>
+                          <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                            <span className="text-sm font-bold text-white">#{whale.rank}</span>
                           </div>
                           <div>
                             <p className="text-sm font-medium text-slate-900">{whale.address}</p>
@@ -381,26 +386,26 @@ export default function Dashboard() {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-slate-900">Wallet Discovery Tool</h2>
-            <p className="text-slate-500">Advanced search with filters and analytics</p>
-            <Card className="bg-white border border-slate-200">
+            <p className="text-slate-600">Advanced search with filters and analytics</p>
+            <Card className="sei-card-hover">
               <CardHeader>
                 <CardTitle className="text-slate-900">Search Interface</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex space-x-4">
-                  <Input placeholder="Address, tag, or pattern" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="flex-1" />
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white"><Search className="h-4 w-4 mr-2" /> Find Wallets</Button>
+                  <Input placeholder="Address, tag, or pattern" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="flex-1 bg-white border-slate-300 text-slate-900 placeholder:text-slate-500" />
+                  <Button className="sei-button-primary"><Search className="h-4 w-4 mr-2" /> Find Wallets</Button>
                 </div>
               </CardContent>
             </Card>
-            <Card className="bg-white border border-slate-200">
+            <Card className="bg-insider-card glass-morphism-dark insider-border hover-lift">
               <CardHeader>
-                <CardTitle className="text-slate-900">Results Analytics</CardTitle>
+                <CardTitle className="text-neon-blue cyber-text">Results Analytics</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-12">
-                  <Globe className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-                  <p className="text-slate-500">Use advanced filters for precise results</p>
+                  <Globe className="h-12 w-12 text-neon-cyan mx-auto mb-4" />
+                  <p className="text-insider-text-secondary">Use advanced filters for precise results</p>
                 </div>
               </CardContent>
             </Card>
@@ -410,61 +415,61 @@ export default function Dashboard() {
       case "whale-watch":
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-slate-900">Whale Monitoring Dashboard</h2>
-            <p className="text-slate-500">Track large holders and their activities in real-time</p>
+            <h2 className="text-2xl font-bold text-neon-blue cyber-text">Whale Monitoring Dashboard</h2>
+            <p className="text-insider-text-secondary">Track large holders and their activities in real-time</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="bg-white border border-slate-200">
+              <Card className="bg-insider-card glass-morphism-dark insider-border hover-lift">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Whale Population</CardTitle>
+                  <CardTitle className="text-sm font-medium text-insider-text-secondary">Whale Population</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-slate-900">1,247</div>
-                  <p className="text-xs text-green-600">+18% growth</p>
+                  <div className="text-2xl font-bold text-neon-cyan">1,247</div>
+                  <p className="text-xs text-green-400">+18% growth</p>
                 </CardContent>
               </Card>
-              <Card className="bg-white border border-slate-200">
+              <Card className="bg-insider-card glass-morphism-dark insider-border hover-lift">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Average Holdings</CardTitle>
+                  <CardTitle className="text-sm font-medium text-insider-text-secondary">Average Holdings</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-slate-900">$2.8M</div>
-                  <p className="text-xs text-blue-600">Stable trend</p>
+                  <div className="text-2xl font-bold text-neon-cyan">$2.8M</div>
+                  <p className="text-xs text-blue-400">Stable trend</p>
                 </CardContent>
               </Card>
-              <Card className="bg-white border border-slate-200">
+              <Card className="bg-insider-card glass-morphism-dark insider-border hover-lift">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Daily Active Whales</CardTitle>
+                  <CardTitle className="text-sm font-medium text-insider-text-secondary">Daily Active Whales</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-slate-900">342</div>
-                  <p className="text-xs text-orange-600">Above average</p>
+                  <div className="text-2xl font-bold text-neon-cyan">342</div>
+                  <p className="text-xs text-orange-400">Above average</p>
                 </CardContent>
               </Card>
             </div>
             
-            <Card className="bg-white border border-slate-200">
+            <Card className="bg-insider-card glass-morphism-dark insider-border hover-lift">
               <CardHeader>
-                <CardTitle className="text-slate-900">Whale Rankings</CardTitle>
-                <CardDescription className="text-slate-500">Top whale wallets by balance (>$100k)</CardDescription>
+                <CardTitle className="text-neon-blue cyber-text">Whale Rankings</CardTitle>
+                <CardDescription className="text-insider-text-secondary">Top whale wallets by balance (>$100k)</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {[...Array(10)].map((_, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+                    <div key={i} className="flex items-center justify-between p-4 bg-insider-dark/50 rounded-lg insider-border hover:bg-insider-dark/70 transition-colors">
                       <div className="flex items-center space-x-4">
-                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full flex items-center justify-center">
                           <span className="text-sm font-bold text-white">#{i + 1}</span>
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-slate-900">0x{Math.random().toString(16).substr(2, 8)}...{Math.random().toString(16).substr(2, 6)}</p>
-                          <p className="text-xs text-slate-500">{Math.floor(Math.random() * 500 + 100)} transactions</p>
+                          <p className="text-sm font-medium text-neon-blue">0x{Math.random().toString(16).substr(2, 8)}...{Math.random().toString(16).substr(2, 6)}</p>
+                          <p className="text-xs text-insider-text-secondary">{Math.floor(Math.random() * 500 + 100)} transactions</p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm font-medium text-slate-900">${(Math.random() * 5 + 1).toFixed(1)}M</p>
+                        <p className="text-sm font-medium text-neon-cyan">${(Math.random() * 5 + 1).toFixed(1)}M</p>
                         <p className={cn(
                           "text-xs",
-                          Math.random() > 0.5 ? "text-green-600" : "text-red-600"
+                          Math.random() > 0.5 ? "text-green-400" : "text-red-400"
                         )}>{Math.random() > 0.5 ? "+" : "-"}{(Math.random() * 10).toFixed(1)}%</p>
                       </div>
                     </div>
@@ -478,33 +483,33 @@ export default function Dashboard() {
       case "dev-screener":
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-slate-900">Dev Wallet Analyzer</h2>
-            <p className="text-slate-500">Screen for developer-related holdings and risks</p>
-            <Card className="bg-white border border-slate-200">
+            <h2 className="text-2xl font-bold text-neon-blue cyber-text">Dev Wallet Analyzer</h2>
+            <p className="text-insider-text-secondary">Screen for developer-related holdings and risks</p>
+            <Card className="bg-insider-card glass-morphism-dark insider-border hover-lift">
               <CardHeader>
-                <CardTitle className="text-slate-900">Screening Overview</CardTitle>
+                <CardTitle className="text-neon-blue cyber-text">Screening Overview</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                  <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <Shield className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                    <p className="text-sm font-medium text-slate-900">Detected Dev Wallets</p>
-                    <p className="text-2xl font-bold text-blue-600">127</p>
+                  <div className="text-center p-4 bg-insider-dark/50 rounded-lg insider-border">
+                    <Shield className="h-8 w-8 text-neon-blue mx-auto mb-2" />
+                    <p className="text-sm font-medium text-insider-text-secondary">Detected Dev Wallets</p>
+                    <p className="text-2xl font-bold text-neon-cyan">127</p>
                   </div>
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <TrendingUp className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                    <p className="text-sm font-medium text-slate-900">Total Holdings</p>
-                    <p className="text-2xl font-bold text-green-600">$45.2M</p>
+                  <div className="text-center p-4 bg-insider-dark/50 rounded-lg insider-border">
+                    <TrendingUp className="h-8 w-8 text-green-400 mx-auto mb-2" />
+                    <p className="text-sm font-medium text-insider-text-secondary">Total Holdings</p>
+                    <p className="text-2xl font-bold text-neon-cyan">$45.2M</p>
                   </div>
-                  <div className="text-center p-4 bg-orange-50 rounded-lg">
-                    <AlertTriangle className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-                    <p className="text-sm font-medium text-slate-900">High Risk</p>
-                    <p className="text-2xl font-bold text-orange-600">23</p>
+                  <div className="text-center p-4 bg-insider-dark/50 rounded-lg insider-border">
+                    <AlertTriangle className="h-8 w-8 text-orange-400 mx-auto mb-2" />
+                    <p className="text-sm font-medium text-insider-text-secondary">High Risk</p>
+                    <p className="text-2xl font-bold text-neon-cyan">23</p>
                   </div>
-                  <div className="text-center p-4 bg-purple-50 rounded-lg">
-                    <Activity className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                    <p className="text-sm font-medium text-slate-900">Active</p>
-                    <p className="text-2xl font-bold text-purple-600">89</p>
+                  <div className="text-center p-4 bg-insider-dark/50 rounded-lg insider-border">
+                    <Activity className="h-8 w-8 text-neon-purple mx-auto mb-2" />
+                    <p className="text-sm font-medium text-insider-text-secondary">Active</p>
+                    <p className="text-2xl font-bold text-neon-cyan">89</p>
                   </div>
                 </div>
                 
@@ -539,25 +544,25 @@ export default function Dashboard() {
         return (
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-slate-900">Tracked Wallet Manager</h2>
-            <p className="text-slate-500">Monitor and analyze your watched addresses</p>
-            <Card className="bg-white border border-slate-200">
+            <p className="text-slate-600">Monitor and analyze your watched addresses</p>
+            <Card className="sei-card-hover">
               <CardHeader>
                 <CardTitle className="text-slate-900">Watchlist Overview</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex space-x-4">
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white"><Star className="h-4 w-4 mr-2" /> Track New</Button>
-                    <Button variant="outline" size="sm"><Filter className="h-4 w-4 mr-2" /> Sort</Button>
+                    <Button size="sm" className="sei-button-primary"><Star className="h-4 w-4 mr-2" /> Track New</Button>
+                    <Button variant="outline" size="sm" className="sei-button-secondary"><Filter className="h-4 w-4 mr-2" /> Sort</Button>
                   </div>
-                  <Badge variant="outline" className="text-slate-600">Active Watchlist</Badge>
+                  <Badge variant="outline" className="text-blue-600 border-blue-200">Active Watchlist</Badge>
                 </div>
                 
                 <div className="space-y-4">
                   {[...Array(6)].map((_, i) => (
-                    <div key={i} className="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
+                    <div key={i} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 transition-colors hover:shadow-md">
                       <div className="flex items-center space-x-4">
-                        <Star className="h-5 w-5 text-yellow-500 fill-current" />
+                        <Star className="h-5 w-5 text-blue-600 fill-current" />
                         <div>
                           <p className="text-sm font-medium text-slate-900">0x{Math.random().toString(16).substr(2, 8)}...{Math.random().toString(16).substr(2, 6)}</p>
                           <p className="text-xs text-slate-500">Added {Math.floor(Math.random() * 30 + 1)} days ago</p>
@@ -571,7 +576,7 @@ export default function Dashboard() {
                             Math.random() > 0.5 ? "text-green-600" : "text-red-600"
                           )}>{Math.random() > 0.5 ? "+" : "-"}{(Math.random() * 15).toFixed(1)}%</p>
                         </div>
-                        <Button variant="ghost" size="sm">
+                        <Button variant="ghost" size="sm" className="text-slate-500 hover:text-blue-600 hover:bg-slate-100">
                           <Eye className="h-4 w-4" />
                         </Button>
                       </div>
@@ -586,43 +591,43 @@ export default function Dashboard() {
       case "wallet-overview":
         return (
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-slate-900">Wallet Profile Summary</h2>
-            <p className="text-slate-500">Detailed metrics and history</p>
+            <h2 className="text-2xl font-bold text-neon-blue cyber-text">Wallet Profile Summary</h2>
+            <p className="text-insider-text-secondary">Detailed metrics and history</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="bg-white border border-slate-200">
+              <Card className="bg-insider-card glass-morphism-dark insider-border hover-lift">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Current Balance</CardTitle>
+                  <CardTitle className="text-sm font-medium text-insider-text-secondary">Current Balance</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-slate-900">$1,247,892</div>
-                  <p className="text-xs text-green-600">Stable growth</p>
+                  <div className="text-2xl font-bold text-neon-cyan">$1,247,892</div>
+                  <p className="text-xs text-green-400">Stable growth</p>
                 </CardContent>
               </Card>
-              <Card className="bg-white border border-slate-200">
+              <Card className="bg-insider-card glass-morphism-dark insider-border hover-lift">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Security Rating</CardTitle>
+                  <CardTitle className="text-sm font-medium text-insider-text-secondary">Security Rating</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-green-600">7.2/10</div>
-                  <p className="text-xs text-slate-500">Secure</p>
+                  <div className="text-2xl font-bold text-green-400">7.2/10</div>
+                  <p className="text-xs text-insider-text-secondary">Secure</p>
                 </CardContent>
               </Card>
-              <Card className="bg-white border border-slate-200">
+              <Card className="bg-insider-card glass-morphism-dark insider-border hover-lift">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Transactions</CardTitle>
+                  <CardTitle className="text-sm font-medium text-insider-text-secondary">Transactions</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-slate-900">2,847</div>
-                  <p className="text-xs text-blue-600">+12 today</p>
+                  <div className="text-2xl font-bold text-neon-cyan">2,847</div>
+                  <p className="text-xs text-neon-blue">+12 today</p>
                 </CardContent>
               </Card>
-              <Card className="bg-white border border-slate-200">
+              <Card className="bg-insider-card glass-morphism-dark insider-border hover-lift">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Age</CardTitle>
+                  <CardTitle className="text-sm font-medium text-insider-text-secondary">Age</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-slate-900">247 days</div>
-                  <p className="text-xs text-slate-500">First tx: Mar 2024</p>
+                  <div className="text-2xl font-bold text-neon-cyan">247 days</div>
+                  <p className="text-xs text-insider-text-secondary">First tx: Mar 2024</p>
                 </CardContent>
               </Card>
             </div>
@@ -1705,13 +1710,13 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-slate-900">
+    <div className="min-h-screen bg-insider-darker blockchain-grid text-insider-text-primary">
       {/* Success Toast */}
       {showToast && (
         <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2">
-          <Alert className="border-green-500 bg-green-50">
-            <CheckCircle className="h-4 w-4 text-green-600" />
-            <AlertDescription className="text-green-800">{toastMessage}</AlertDescription>
+          <Alert className="glass-morphism-dark insider-border-glow">
+            <CheckCircle className="h-4 w-4 text-neon-blue" />
+            <AlertDescription className="text-insider-text-primary">{toastMessage}</AlertDescription>
           </Alert>
         </div>
       )}
@@ -1719,20 +1724,20 @@ export default function Dashboard() {
       <div className="flex h-screen">
         {/* Sidebar */}
         <div className={cn(
-          "bg-white border-r border-slate-200 transition-all duration-300 flex flex-col",
+          "bg-insider-darker glass-morphism-dark insider-border transition-all duration-300 flex flex-col",
           sidebarOpen ? "w-64" : "w-16"
         )}>
           {/* Sidebar Header */}
-          <div className="p-4 border-b border-slate-200">
+          <div className="p-4 border-b insider-border">
             <div className="flex items-center justify-between">
               <div className={cn("flex items-center space-x-3", !sidebarOpen && "justify-center")}>
-                <div className="p-2 bg-blue-600 rounded-lg">
+                <div className="p-2 gradient-bg rounded-lg neon-glow animate-float">
                   <Bot className="h-6 w-6 text-white" />
                 </div>
                 {sidebarOpen && (
                   <div>
-                    <h1 className="text-lg font-bold text-slate-900">Insider</h1>
-                    <p className="text-xs text-slate-500">Wallet Behavior Analyst</p>
+                    <h1 className="text-lg font-bold text-neon-blue cyber-text">INSIDER</h1>
+                    <p className="text-xs text-insider-text-secondary">Blockchain Intelligence</p>
                   </div>
                 )}
               </div>
@@ -1766,10 +1771,10 @@ export default function Dashboard() {
                         }
                       }}
                       className={cn(
-                        "w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors",
+                        "w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-all duration-300 hover-lift",
                         activeTab === item.id && !hasSubItems
-                          ? "bg-blue-100 text-blue-700 border border-blue-200"
-                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                          ? "bg-insider-card glass-morphism-dark text-neon-blue insider-border-glow"
+                          : "text-insider-text-secondary hover:bg-insider-card hover:text-neon-cyan",
                         !sidebarOpen && "justify-center"
                       )}
                     >
@@ -1803,10 +1808,10 @@ export default function Dashboard() {
                               key={subItem.id}
                               onClick={() => setActiveTab(subItem.id)}
                               className={cn(
-                                "w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors text-sm",
+                                "w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-all duration-300 text-sm hover-lift",
                                 activeTab === subItem.id
-                                  ? "bg-blue-100 text-blue-700 border border-blue-200"
-                                  : "text-slate-500 hover:bg-slate-100 hover:text-slate-700"
+                                  ? "bg-insider-card glass-morphism-dark text-neon-purple insider-border-glow"
+                                  : "text-insider-text-secondary hover:bg-insider-card hover:text-neon-cyan"
                               )}
                             >
                               <div className="flex items-center space-x-3">
@@ -1830,11 +1835,11 @@ export default function Dashboard() {
           </nav>
 
           {/* Sidebar Footer */}
-          <div className="p-4 border-t border-slate-200">
+          <div className="p-4 border-t insider-border">
             {sidebarOpen && (
               <div className="mb-4">
-                <p className="text-xs text-slate-500 mb-2">Connected Wallet</p>
-                <p className="text-sm font-mono text-slate-700 truncate">
+                <p className="text-xs text-insider-text-secondary mb-2">Connected Wallet</p>
+                <p className="text-sm font-mono text-neon-cyan truncate pulse-neon">
                   {connectedWallet.substring(0, 8)}...{connectedWallet.substring(connectedWallet.length - 6)}
                 </p>
               </div>
@@ -1845,7 +1850,7 @@ export default function Dashboard() {
                 size="sm"
                 onClick={handleDisconnect}
                 className={cn(
-                  "border-slate-300 text-slate-700 hover:bg-slate-100",
+                  "insider-border text-insider-text-secondary hover:bg-insider-card hover:text-neon-cyan transition-all duration-300",
                   sidebarOpen ? "w-full" : "w-10 h-10 p-0"
                 )}
               >
@@ -1859,10 +1864,10 @@ export default function Dashboard() {
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden">
           {/* Top Header */}
-          <header className="bg-white border-b border-slate-200 px-6 py-4">
+          <header className="bg-insider-card glass-morphism-dark border-b insider-border px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold text-slate-900">
+                <h2 className="text-2xl font-bold text-neon-blue cyber-text">
                   {sidebarItems.find(item => 
                     item.id === activeTab || 
                     item.subItems?.some(sub => sub.id === activeTab)
@@ -1872,10 +1877,10 @@ export default function Dashboard() {
                   )?.subItems?.find(sub => sub.id === activeTab)?.label || 
                   "Dashboard"}
                 </h2>
-                <p className="text-slate-500">Real-time wallet monitoring and analysis</p>
+                <p className="text-insider-text-secondary">Real-time blockchain intelligence and analysis</p>
               </div>
               <div className="flex items-center space-x-4">
-                <Badge variant="outline" className="text-slate-600">
+                <Badge variant="outline" className="insider-border text-neon-cyan neon-glow-cyan">
                   <Globe className="h-3 w-3 mr-1" />
                   Sei Network
                 </Badge>
@@ -1883,7 +1888,7 @@ export default function Dashboard() {
                   variant="outline"
                   size="sm"
                   onClick={() => window.open('/api-docs', '_blank')}
-                  className="border-blue-300 text-blue-700 hover:bg-blue-50"
+                  className="insider-border-glow text-neon-purple hover:bg-insider-card transition-all duration-300"
                 >
                   <FileText className="h-4 w-4 mr-2" />
                   API Docs
@@ -1893,7 +1898,7 @@ export default function Dashboard() {
           </header>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-auto p-6">
+          <div className="flex-1 overflow-auto p-6 bg-insider-dark">
             {renderContent()}
           </div>
         </div>
