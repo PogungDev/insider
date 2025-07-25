@@ -156,7 +156,7 @@ npm install ethers @web3-react/core @web3-react/injected-connector
 // hooks/useInsiderContract.ts
 import { ethers } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
-import InsiderAnalyticsABI from '../deployments/InsiderAnalytics.abi.json';
+import InsiderAnalyticsABI from '@/deployments/InsiderAnalytics.abi.json';
 
 export function useInsiderContract() {
   const { library, account } = useWeb3React();
@@ -188,7 +188,7 @@ export function useInsiderContract() {
 
 ```tsx
 // components/WalletRiskDisplay.tsx
-import { useInsiderContract } from '../hooks/useInsiderContract';
+import { useInsiderContract } from '@/hooks/useInsiderContract';
 
 export function WalletRiskDisplay({ walletAddress }: { walletAddress: string }) {
   const { getWalletRisk } = useInsiderContract();
@@ -273,11 +273,11 @@ module.exports = ContractEventListener;
 ### 2. API Integration
 
 ```javascript
-// pages/api/contract/wallet-risk.js
+// app/api/contract/wallet-risk/route.ts
 import { ethers } from 'ethers';
-import InsiderAnalyticsABI from '../../../deployments/InsiderAnalytics.abi.json';
+import InsiderAnalyticsABI from '@/deployments/InsiderAnalytics.abi.json';
 
-export default async function handler(req, res) {
+export async function GET(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ message: 'Method not allowed' });
   }

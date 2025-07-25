@@ -1,7 +1,7 @@
 // This script simulates an on-chain unlock event for testing purposes.
 // It directly updates an unlock event's status to CONFIRMED in the dummy DB.
 
-import { db } from "../lib/db"
+import { db } from "@/backend/lib/db"
 
 export async function mockOnChainUnlock(eventId: string) {
   const unlock = db.unlocks.findOne((u) => u.id === eventId)

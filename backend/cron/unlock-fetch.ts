@@ -1,7 +1,7 @@
 // This file simulates the cron job for fetching off-chain unlock data.
 // In a real scenario, this would be triggered by GitHub Actions or Vercel Cron.
 
-import { db, type UnlockEvent } from "../lib/db"
+import { db, type UnlockEvent } from "@/backend/lib/db"
 
 const TOKENS = ["SEI", "ATOM", "OSMO", "ETH"] // Example tokens to fetch
 

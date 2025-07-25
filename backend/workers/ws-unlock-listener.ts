@@ -1,7 +1,7 @@
 // This file simulates a real-time WebSocket listener for on-chain events.
 // It periodically checks for PENDING unlocks that are due and marks them as CONFIRMED.
 
-import { db } from "../lib/db"
+import { db } from "@/backend/lib/db"
 
 const VESTING_ADDR = "0xVestingContractAddress" // Dummy vesting contract address
 
