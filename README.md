@@ -74,7 +74,17 @@ INSIDER is a comprehensive blockchain analytics platform designed specifically f
 
 ## Key Features Demonstrating Tooling Excellence
 
-### 1. Smart Contract Integration
+### 1. Wallet Behavior Analyst
+A tool for monitoring and analyzing the behavior of specific wallets, providing insights into spending patterns, potential investment strategies, and alerting on unusual activities, all integrated with Sei.
+
+- **Spending Pattern Analysis**: Real-time monitoring of wallet transaction patterns and spending behaviors
+- **Investment Strategy Insights**: AI-powered analysis of portfolio composition and trading strategies
+- **Unusual Activity Alerts**: Automated detection and notification of anomalous wallet behaviors
+- **Sei Integration**: Native support for Sei blockchain wallet monitoring and analytics
+- **Risk Assessment**: Comprehensive scoring system for wallet risk evaluation
+- **Behavioral Classification**: Automatic categorization of wallet types (DeFi farmer, HODLer, arbitrageur)
+
+### 2. Smart Contract Integration
 ```typescript
 // Example: Interact with analytics contract
 const { registerWallet, getWalletRisk } = useInsiderContract()
@@ -82,27 +92,27 @@ await registerWallet(walletAddress, metadata)
 const riskData = await getWalletRisk(walletAddress)
 ```
 
-### 2. Real-time Monitoring Dashboard
+### 3. Real-time Monitoring Dashboard
 ```typescript
 // Example: Real-time wallet monitoring
 const { data, isLoading } = useRealTimeWalletData(walletAddress)
 ```\`\`\`
 
-### 3. AI-Powered Investment Insights
+### 4. AI-Powered Investment Insights
 \`\`\`typescript
 // Example: Get AI recommendations
 const insight = await getAIRecommendation(walletAddress)
 console.log(insight.recommendation) // "Hold", "Sell", "Hedge", "Buy More"
 \`\`\`
 
-### 4. Behavioral Analytics
+### 5. Behavioral Analytics
 \`\`\`typescript
 // Example: Analyze spending patterns
 const patterns = await getBehaviorInsights(walletAddress)
 console.log(patterns.behaviorPatterns) // DeFi Farmer, Long-term Holder, etc.
 \`\`\`
 
-### 5. Alert System Integration
+### 6. Alert System Integration
 \`\`\`typescript
 // Example: Subscribe to alerts
 await subscribeAlert(walletAddress, "whale_movement", "telegram")
