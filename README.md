@@ -1,5 +1,7 @@
 # INSIDER - Sei Blockchain Analytics Platform
 
+🚀 **NEW: Smart Contract Integration with Solidity** - INSIDER now features comprehensive smart contract analytics and on-chain interaction capabilities!
+
 ## How This Meets Tooling Track Goals
 
 INSIDER is a comprehensive blockchain analytics platform designed specifically for the Sei ecosystem, addressing the key requirements of the Tooling & Infrastructure Track:
@@ -29,26 +31,34 @@ INSIDER is a comprehensive blockchain analytics platform designed specifically f
 - **Interactive AI Chat**: Real-time blockchain insights and strategy consultation
 
 ### 5. Tooling / SDK Value ✅
+- **Smart Contract SDK**: Solidity contracts for on-chain analytics integration
+- **Web3 Integration**: Complete Web3 provider setup with multi-chain support
 - **Comprehensive SDK**: Full TypeScript SDK for developers to integrate analytics
 - **REST API**: Well-documented endpoints for data access and real-time monitoring
 - **Reusable Components**: React components for blockchain data visualization
 - **Developer Tools**: CLI tools and utilities for blockchain data analysis
+- **Contract Interaction Tools**: Hardhat-based deployment and testing framework
 
 ## Technical Architecture
 
 ### Frontend Stack
 - **Next.js 14** with App Router for optimal performance
 - **React Server Components** for efficient data fetching
+- **Web3 Integration**: Wagmi + Ethers.js for smart contract interaction
+- **Multi-Chain Support**: Sei, Ethereum, Polygon, BSC networks
 - **Tailwind CSS** + **shadcn/ui** for consistent design system
 - **Recharts** for advanced data visualization
 - **TypeScript** for type safety
 
 ### Backend Infrastructure
+- **Smart Contracts**: Solidity-based analytics contracts deployed on multiple chains
 - **Serverless Functions** on Vercel for scalable API endpoints
 - **WebSocket Listeners** for real-time blockchain event monitoring
+- **Contract Event Listeners**: Real-time smart contract event monitoring
 - **Cron Jobs** for scheduled data fetching (6-hour intervals)
 - **MongoDB** for persistent data storage
 - **Redis** for high-performance caching
+- **Hardhat Framework**: Contract development, testing, and deployment
 
 ### AI & Analytics Engine
 - **OpenAI GPT-4** for intelligent insights and recommendations
@@ -64,27 +74,35 @@ INSIDER is a comprehensive blockchain analytics platform designed specifically f
 
 ## Key Features Demonstrating Tooling Excellence
 
-### 1. Real-time Monitoring Dashboard
-\`\`\`typescript
+### 1. Smart Contract Integration
+```typescript
+// Example: Interact with analytics contract
+const { registerWallet, getWalletRisk } = useInsiderContract()
+await registerWallet(walletAddress, metadata)
+const riskData = await getWalletRisk(walletAddress)
+```
+
+### 2. Real-time Monitoring Dashboard
+```typescript
 // Example: Real-time wallet monitoring
 const { data, isLoading } = useRealTimeWalletData(walletAddress)
-\`\`\`
+```\`\`\`
 
-### 2. AI-Powered Investment Insights
+### 3. AI-Powered Investment Insights
 \`\`\`typescript
 // Example: Get AI recommendations
 const insight = await getAIRecommendation(walletAddress)
 console.log(insight.recommendation) // "Hold", "Sell", "Hedge", "Buy More"
 \`\`\`
 
-### 3. Behavioral Analytics
+### 4. Behavioral Analytics
 \`\`\`typescript
 // Example: Analyze spending patterns
 const patterns = await getBehaviorInsights(walletAddress)
 console.log(patterns.behaviorPatterns) // DeFi Farmer, Long-term Holder, etc.
 \`\`\`
 
-### 4. Alert System Integration
+### 5. Alert System Integration
 \`\`\`typescript
 // Example: Subscribe to alerts
 await subscribeAlert(walletAddress, "whale_movement", "telegram")
@@ -101,15 +119,73 @@ await subscribeAlert(walletAddress, "whale_movement", "telegram")
   - Whale Movements: 94%
   - Anomaly Detection: 89%
 
+## Smart Contract Features
+
+### On-Chain Analytics
+- **Wallet Registration**: Register wallets for on-chain tracking
+- **Risk Assessment**: Calculate and store wallet risk scores
+- **Anomaly Detection**: Record and track suspicious activities
+- **Token Unlock Monitoring**: Schedule and monitor token unlock events
+- **Multi-Chain Support**: Deploy across Sei, Ethereum, Polygon, BSC
+
+### Contract Functions
+```solidity
+// Core analytics functions
+function registerWallet(address wallet, string metadata) external
+function getWalletRisk(address wallet) external view returns (uint256)
+function recordAnomaly(address wallet, string anomalyType, uint256 severity) external
+function scheduleTokenUnlock(address token, uint256 amount, uint256 unlockTime) external
+```
+
+### Smart Contract Deployment
+```bash
+# Setup environment
+npm run setup
+
+# Compile contracts
+npm run compile
+
+# Test contracts
+npm run test
+
+# Deploy to testnet
+npm run deploy:sepolia
+npm run deploy:sei-testnet
+
+# Deploy to mainnet
+npm run deploy:mainnet
+npm run deploy:sei-mainnet
+```
+
 ## Getting Started
 
 ### For End Users
 1. Visit [https://insider-sei-analytics.vercel.app](https://insider-sei-analytics.vercel.app)
 2. Connect your Sei wallet
 3. Explore real-time analytics and AI insights
+4. **Smart Contract Interaction**: Register wallet and view on-chain analytics
 
 ### For Developers
-\`\`\`bash
+```bash
+# Clone repository
+git clone [repository-url]
+
+# Install dependencies
+npm install
+
+# Smart Contract Setup
+npm run setup
+
+# Compile and test contracts
+npm run compile
+npm run test
+
+# Deploy contracts
+npm run deploy:sei-testnet
+
+# Start development server
+npm run dev
+
 # Install the SDK
 npm install @insider/sei-analytics
 
@@ -118,7 +194,7 @@ import { InsiderSDK } from '@insider/sei-analytics'
 
 const sdk = new InsiderSDK()
 const insights = await sdk.getWalletInsights(walletAddress)
-\`\`\`
+```
 
 ### API Documentation
 - **Swagger UI**: [/api-docs](https://insider-sei-analytics.vercel.app/api-docs)
