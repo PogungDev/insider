@@ -295,11 +295,33 @@ export default function PatternsPage() {
               <CardDescription>Most frequently used DeFi protocols and services</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="text-center py-8 text-muted-foreground">
-                <Filter className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                <p>Vendor analysis coming soon...</p>
-                <p className="text-sm">This will show top DeFi protocols, DEXs, and services by usage</p>
-              </div>
+              <div className="space-y-4">
+                  {[
+                    { name: 'Uniswap', volume: 1500000, transactions: 456, share: 28.5, trend: 'up' },
+                    { name: 'Aave', volume: 1200000, transactions: 234, share: 22.8, trend: 'stable' },
+                    { name: 'Compound', volume: 950000, transactions: 189, share: 18.1, trend: 'down' },
+                    { name: 'MakerDAO', volume: 800000, transactions: 156, share: 15.2, trend: 'up' },
+                    { name: 'Curve', volume: 650000, transactions: 123, share: 12.4, trend: 'stable' },
+                  ].map((vendor, index) => (
+                    <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                          <Activity className="h-5 w-5 text-blue-600" />
+                        </div>
+                        <div>
+                          <div className="font-medium">{vendor.name}</div>
+                          <div className="text-sm text-muted-foreground">{vendor.transactions} transactions</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-semibold">{formatCurrency(vendor.volume)}</div>
+                        <div className="text-sm text-muted-foreground flex items-center justify-end">
+                          {vendor.share}% {getTrendIcon(vendor.trend)}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
             </CardContent>
           </Card>
         </TabsContent>

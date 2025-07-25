@@ -266,49 +266,47 @@ export default function Dashboard() {
       case "overview":
         return (
           <div className="space-y-6">
-            {/* Global KPIs */}
+            <h2 className="text-2xl font-bold text-slate-900">Global Network Overview</h2>
+            <p className="text-slate-500">Key metrics and insights for Sei ecosystem</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card className="bg-white border border-slate-200">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-slate-600">Total Wallets</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">Total Active Wallets</CardTitle>
                   <Users className="h-4 w-4 text-slate-400" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">{mockData.globalKPIs.totalWallets}</div>
-                  <p className="text-xs text-green-600">+12.5% from last month</p>
+                  <p className="text-xs text-green-600">+15% growth</p>
                 </CardContent>
               </Card>
-              
               <Card className="bg-white border border-slate-200">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-slate-600">Total Volume</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">24h Transaction Volume</CardTitle>
                   <DollarSign className="h-4 w-4 text-slate-400" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">{mockData.globalKPIs.totalVolume}</div>
-                  <p className="text-xs text-green-600">+8.2% from yesterday</p>
+                  <p className="text-xs text-green-600">+10% increase</p>
                 </CardContent>
               </Card>
-              
               <Card className="bg-white border border-slate-200">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-slate-600">Active Whales</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">Whale Activity Index</CardTitle>
                   <TrendingUp className="h-4 w-4 text-slate-400" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">{mockData.globalKPIs.activeWhales}</div>
-                  <p className="text-xs text-blue-600">+3.1% from last week</p>
+                  <p className="text-xs text-blue-600">High activity</p>
                 </CardContent>
               </Card>
-              
               <Card className="bg-white border border-slate-200">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-slate-600">Alerts Today</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">Security Alerts</CardTitle>
                   <Bell className="h-4 w-4 text-slate-400" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">{mockData.globalKPIs.alertsToday}</div>
-                  <p className="text-xs text-orange-600">+24 from yesterday</p>
+                  <p className="text-xs text-orange-600">Monitor closely</p>
                 </CardContent>
               </Card>
             </div>
@@ -382,35 +380,27 @@ export default function Dashboard() {
       case "search":
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900">Wallet Discovery Tool</h2>
+            <p className="text-slate-500">Advanced search with filters and analytics</p>
             <Card className="bg-white border border-slate-200">
               <CardHeader>
-                <CardTitle className="text-slate-900">Wallet Search</CardTitle>
-                <CardDescription className="text-slate-500">Search for any wallet address on Sei network</CardDescription>
+                <CardTitle className="text-slate-900">Search Interface</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex space-x-4">
-                  <Input 
-                    placeholder="Enter wallet address (0x... or sei1...)"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="flex-1"
-                  />
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                    <Search className="h-4 w-4 mr-2" />
-                    Search
-                  </Button>
+                  <Input placeholder="Address, tag, or pattern" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="flex-1" />
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white"><Search className="h-4 w-4 mr-2" /> Find Wallets</Button>
                 </div>
               </CardContent>
             </Card>
-            
             <Card className="bg-white border border-slate-200">
               <CardHeader>
-                <CardTitle className="text-slate-900">Search Results</CardTitle>
+                <CardTitle className="text-slate-900">Results Analytics</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-12">
-                  <Search className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-                  <p className="text-slate-500">Enter a wallet address to start searching</p>
+                  <Globe className="h-12 w-12 text-slate-300 mx-auto mb-4" />
+                  <p className="text-slate-500">Use advanced filters for precise results</p>
                 </div>
               </CardContent>
             </Card>
@@ -420,32 +410,34 @@ export default function Dashboard() {
       case "whale-watch":
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900">Whale Monitoring Dashboard</h2>
+            <p className="text-slate-500">Track large holders and their activities in real-time</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card className="bg-white border border-slate-200">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Total Whales</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">Whale Population</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">1,247</div>
-                  <p className="text-xs text-green-600">+23 new this week</p>
+                  <p className="text-xs text-green-600">+18% growth</p>
                 </CardContent>
               </Card>
               <Card className="bg-white border border-slate-200">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Avg Balance</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">Average Holdings</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">$2.8M</div>
-                  <p className="text-xs text-blue-600">+12.5% this month</p>
+                  <p className="text-xs text-blue-600">Stable trend</p>
                 </CardContent>
               </Card>
               <Card className="bg-white border border-slate-200">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Active Today</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">Daily Active Whales</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">342</div>
-                  <p className="text-xs text-orange-600">27% of total</p>
+                  <p className="text-xs text-orange-600">Above average</p>
                 </CardContent>
               </Card>
             </div>
@@ -486,16 +478,17 @@ export default function Dashboard() {
       case "dev-screener":
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900">Dev Wallet Analyzer</h2>
+            <p className="text-slate-500">Screen for developer-related holdings and risks</p>
             <Card className="bg-white border border-slate-200">
               <CardHeader>
-                <CardTitle className="text-slate-900">Developer Wallet Screener</CardTitle>
-                <CardDescription className="text-slate-500">Detect wallets with significant token holdings from development activities</CardDescription>
+                <CardTitle className="text-slate-900">Screening Overview</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                   <div className="text-center p-4 bg-blue-50 rounded-lg">
                     <Shield className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                    <p className="text-sm font-medium text-slate-900">Dev Wallets</p>
+                    <p className="text-sm font-medium text-slate-900">Detected Dev Wallets</p>
                     <p className="text-2xl font-bold text-blue-600">127</p>
                   </div>
                   <div className="text-center p-4 bg-green-50 rounded-lg">
@@ -545,26 +538,19 @@ export default function Dashboard() {
       case "tracked-wallets":
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900">Tracked Wallet Manager</h2>
+            <p className="text-slate-500">Monitor and analyze your watched addresses</p>
             <Card className="bg-white border border-slate-200">
               <CardHeader>
-                <CardTitle className="text-slate-900">My Tracked Wallets</CardTitle>
-                <CardDescription className="text-slate-500">Wallets you're monitoring for activity and changes</CardDescription>
+                <CardTitle className="text-slate-900">Watchlist Overview</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex space-x-4">
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
-                      <Star className="h-4 w-4 mr-2" />
-                      Add Wallet
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      <Filter className="h-4 w-4 mr-2" />
-                      Filter
-                    </Button>
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white"><Star className="h-4 w-4 mr-2" /> Track New</Button>
+                    <Button variant="outline" size="sm"><Filter className="h-4 w-4 mr-2" /> Sort</Button>
                   </div>
-                  <Badge variant="outline" className="text-slate-600">
-                    {Math.floor(Math.random() * 20 + 5)} wallets tracked
-                  </Badge>
+                  <Badge variant="outline" className="text-slate-600">Active Watchlist</Badge>
                 </div>
                 
                 <div className="space-y-4">
@@ -600,23 +586,25 @@ export default function Dashboard() {
       case "wallet-overview":
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900">Wallet Profile Summary</h2>
+            <p className="text-slate-500">Detailed metrics and history</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card className="bg-white border border-slate-200">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Total Balance</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">Current Balance</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">$1,247,892</div>
-                  <p className="text-xs text-green-600">+8.2% (24h)</p>
+                  <p className="text-xs text-green-600">Stable growth</p>
                 </CardContent>
               </Card>
               <Card className="bg-white border border-slate-200">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Risk Score</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">Security Rating</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-green-600">7.2/10</div>
-                  <p className="text-xs text-slate-500">Low Risk</p>
+                  <p className="text-xs text-slate-500">Secure</p>
                 </CardContent>
               </Card>
               <Card className="bg-white border border-slate-200">
@@ -701,26 +689,19 @@ export default function Dashboard() {
       case "tx-log":
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900">Transaction History Viewer</h2>
+            <p className="text-slate-500">Detailed log of all wallet activities</p>
             <Card className="bg-white border border-slate-200">
               <CardHeader>
-                <CardTitle className="text-slate-900">Transaction Log</CardTitle>
-                <CardDescription className="text-slate-500">Complete transaction history for this wallet</CardDescription>
+                <CardTitle className="text-slate-900">Activity Log</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex space-x-4">
-                    <Button variant="outline" size="sm">
-                      <Filter className="h-4 w-4 mr-2" />
-                      Filter
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      <Download className="h-4 w-4 mr-2" />
-                      Export
-                    </Button>
+                    <Button variant="outline" size="sm"><Filter className="h-4 w-4 mr-2" /> Refine</Button>
+                    <Button variant="outline" size="sm"><Download className="h-4 w-4 mr-2" /> Save CSV</Button>
                   </div>
-                  <Badge variant="outline" className="text-slate-600">
-                    2,847 total transactions
-                  </Badge>
+                  <Badge variant="outline" className="text-slate-600">Recent Transactions</Badge>
                 </div>
                 
                 <div className="space-y-4">
@@ -770,23 +751,25 @@ export default function Dashboard() {
       case "holdings":
         return (
           <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900">Asset Holdings Breakdown</h2>
+            <p className="text-slate-500">Portfolio composition and values</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Card className="bg-white border border-slate-200">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Total Portfolio</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">Portfolio Value</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">$1,247,892</div>
-                  <p className="text-xs text-green-600">+8.2% (24h)</p>
+                  <p className="text-xs text-green-600">Positive trend</p>
                 </CardContent>
               </Card>
               <Card className="bg-white border border-slate-200">
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-slate-600">Assets Count</CardTitle>
+                  <CardTitle className="text-sm font-medium text-slate-600">Token Diversity</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold text-slate-900">23</div>
-                  <p className="text-xs text-blue-600">Different tokens</p>
+                  <p className="text-xs text-blue-600">Varied assets</p>
                 </CardContent>
               </Card>
               <Card className="bg-white border border-slate-200">
