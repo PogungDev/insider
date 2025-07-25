@@ -890,18 +890,3 @@ export default function Dashboard() {
     </div>
   )
 }
-
-<TabsContent value="alerts">
-  <Card>
-    <CardHeader>
-      <CardTitle className="flex items-center gap-2">
-        <Bell className="h-5 w-5 text-purple-600" />
-        Anomaly Alerts
-      </CardTitle>
-      <CardDescription>Real-time unusual activity detection with rugpull and unlock risks</CardDescription>
-    </CardHeader>
-    <CardContent>
-      <AnomalyAlertList alerts={anomalyAlerts} getAlertIcon={getAlertIcon} />
-    </CardContent>
-  </Card>
-</TabsContent>
