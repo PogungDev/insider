@@ -9,13 +9,13 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       description: "Comprehensive API for Sei blockchain wallet behavior analysis and monitoring",
       contact: {
         name: "INSIDER Team",
-        url: "https://github.com/your-repo",
-        email: "support@insider.dev",
+        url: "https://github.com/insider-sei/analytics",
+        email: "support@insider-analytics.com",
       },
     },
     servers: [
       {
-        url: "https://v0-sei-blockchain-analytics.vercel.app",
+        url: "https://insider-sei-analytics.vercel.app",
         description: "Production server",
       },
     ],

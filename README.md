@@ -104,7 +104,7 @@ await subscribeAlert(walletAddress, "whale_movement", "telegram")
 ## Getting Started
 
 ### For End Users
-1. Visit [https://v0-sei-blockchain-analytics.vercel.app](https://v0-sei-blockchain-analytics.vercel.app)
+1. Visit [https://insider-sei-analytics.vercel.app](https://insider-sei-analytics.vercel.app)
 2. Connect your Sei wallet
 3. Explore real-time analytics and AI insights
 
@@ -121,14 +121,14 @@ const insights = await sdk.getWalletInsights(walletAddress)
 \`\`\`
 
 ### API Documentation
-- **Swagger UI**: [/api-docs](https://v0-sei-blockchain-analytics.vercel.app/api-docs)
-- **SDK Reference**: [/sdk](https://v0-sei-blockchain-analytics.vercel.app/sdk)
+- **Swagger UI**: [/api-docs](https://insider-sei-analytics.vercel.app/api-docs)
+- **SDK Reference**: [/sdk](https://insider-sei-analytics.vercel.app/sdk)
 
 ## Demo & Resources
 
 - **Live Demo**: [Watch 3-minute demo video](https://youtu.be/demo-video)
-- **GitHub Repository**: [https://github.com/your-repo](https://github.com/your-repo)
-- **Twitter**: [@YourHandle](https://twitter.com/your-handle)
+- **GitHub Repository**: [https://github.com/insider-sei/analytics](https://github.com/insider-sei/analytics)
+- **Twitter**: [@InsiderSei](https://twitter.com/InsiderSei)
 
 ## Why INSIDER Wins the Tooling Track
 

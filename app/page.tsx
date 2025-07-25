@@ -29,6 +29,7 @@ import {
   FileText,
   Play,
   ExternalLink,
+  Bot,
 } from "lucide-react"
 
 export default function LandingPage() {
