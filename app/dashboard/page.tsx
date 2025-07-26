@@ -6,24 +6,23 @@ import { WalletProvider } from "@/app/core/providers/WalletProvider"
 import { GlobalMetrics } from "@/app/features/analytics/components/GlobalMetrics"
 import { RecentTransactions } from "@/app/features/analytics/components/RecentTransactions"
 import { TopWhales } from "@/app/features/analytics/components/TopWhales"
-import { WalletSearch } from "@/app/features/wallet-explorer/components/WalletSearch"
-import { WhaleWatch } from "@/app/features/whale-tracking/components/WhaleWatch"
-import { DevScreener } from "@/app/features/analytics/components/DevScreener"
-import { TrackedWallets } from "@/app/features/wallet-explorer/components/TrackedWallets"
-import { WalletOverview } from "@/app/features/wallet-explorer/components/WalletOverview"
-import { TxLog } from "@/app/features/wallet-explorer/components/TxLog"
-import { WalletTagging } from "@/app/features/wallet-explorer/components/WalletTagging"
-import { WhaleAlerts } from "@/app/features/whale-tracking/components/WhaleAlerts"
-import { WhaleAnalytics } from "@/app/features/whale-tracking/components/WhaleAnalytics"
-import { NetworkMetrics } from "@/app/features/analytics/components/NetworkMetrics"
-import { TokenFlows } from "@/app/features/analytics/components/TokenFlows"
-import { SentimentAnalysis } from "@/app/features/analytics/components/SentimentAnalysis"
-import { AlertRules } from "@/app/features/alerts/components/AlertRules"
-import { AlertHistory } from "@/app/features/alerts/components/AlertHistory"
-import { UnlockCalendar } from "@/app/features/unlocks/components/UnlockCalendar"
-import { ReportHistory } from "@/app/features/reports/components/ReportHistory"
+// Legacy components removed - now using Ultra-Dense Architecture components
 import { APIDocumentation } from "@/app/features/api-management/components/APIDocumentation"
 import { mockData } from "@/app/lib/constants/mockData";
+
+// Ultra-Dense Architecture Components
+import { WalletGraphExplorer } from "@/app/features/wallet-intelligence/components/WalletGraphExplorer"
+import { IdentityProfiler } from "@/app/features/wallet-intelligence/components/IdentityProfiler"
+import { ThreatMonitor } from "@/app/features/risk-radar/components/ThreatMonitor"
+import { LiquidityRadar } from "@/app/features/capital-flow/components/LiquidityRadar"
+import { FlowPatternDetector } from "@/app/features/capital-flow/components/FlowPatternDetector"
+import { SmartMoneyTracker } from "@/app/features/capital-flow/components/SmartMoneyTracker"
+import { HabitAnalyzer } from "@/app/features/behavioral-dna/components/HabitAnalyzer"
+import { SentimentDecoder } from "@/app/features/behavioral-dna/components/SentimentDecoder"
+import { PredictiveModel } from "@/app/features/behavioral-dna/components/PredictiveModel"
+import { StrategyBacktester } from "@/app/features/alpha-synthesis/components/StrategyBacktester"
+import { ReportGenerator } from "@/app/features/alpha-synthesis/components/ReportGenerator"
+import { AlphaRanking } from "@/app/features/alpha-synthesis/components/AlphaRanking"
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("overview")
@@ -38,6 +37,75 @@ export default function Dashboard() {
     }
   }, [])
 
+  const renderContent = () => {
+    switch (activeTab) {
+      case "overview":
+        return (
+          <div className="space-y-6">
+            <GlobalMetrics data={mockData.globalKPIs} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <RecentTransactions transactions={mockData.recentTransactions} />
+              <TopWhales whales={mockData.topWhales} />
+            </div>
+          </div>
+        )
+      // Ultra-Dense Architecture Tabs
+      case "wallet-graph-explorer":
+        return <WalletGraphExplorer />
+      case "identity-profiler":
+        return <IdentityProfiler />
+      case "annotated-timeline":
+        return <IdentityProfiler /> // Using Identity Profiler for timeline view
+      case "behavioral-insights":
+        return <HabitAnalyzer /> // Using Habit Analyzer for behavioral insights
+      case "threat-monitor":
+        return <ThreatMonitor />
+      case "contract-auditor":
+        return <ThreatMonitor /> // Using Threat Monitor for contract auditing
+      case "exploit-simulation":
+        return <ThreatMonitor /> // Using Threat Monitor for exploit simulation
+      case "vulnerability-scanner":
+        return <ThreatMonitor /> // Using Threat Monitor for vulnerability scanning
+      case "liquidity-radar":
+        return <LiquidityRadar />
+      case "flow-pattern-detector":
+        return <FlowPatternDetector />
+      case "smart-money-tracker":
+        return <SmartMoneyTracker />
+      case "cross-chain-monitor":
+        return <FlowPatternDetector /> // Using Flow Pattern Detector for cross-chain monitoring
+      case "habit-analyzer":
+        return <HabitAnalyzer />
+      case "sentiment-decoder":
+        return <SentimentDecoder />
+      case "predictive-model":
+        return <PredictiveModel />
+      case "personality-profiler":
+        return <SentimentDecoder /> // Using Sentiment Decoder for personality profiling
+      case "strategy-backtester":
+        return <StrategyBacktester />
+      case "report-generator":
+        return <ReportGenerator />
+      case "alpha-ranking":
+        return <AlphaRanking />
+      case "live-signals":
+        return <AlphaRanking /> // Using Alpha Ranking for live signals
+      // Legacy tabs removed - all functionality now available through Ultra-Dense Architecture
+      case "api-docs":
+        return <APIDocumentation />
+      default:
+        return (
+          <div className="space-y-6">
+            <GlobalMetrics data={mockData.globalKPIs} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <RecentTransactions transactions={mockData.recentTransactions} />
+              <TopWhales whales={mockData.topWhales} />
+            </div>
+          </div>
+        )
+    }
+  }
+
   if (!connectedWallet) return null
 
   return (
@@ -45,30 +113,7 @@ export default function Dashboard() {
       <div className="flex min-h-screen bg-slate-50">
         <Sidebar setActiveTab={setActiveTab} />
         <div className="flex-1 p-6">
-          {activeTab === "overview" && (
-            <>
-              <GlobalMetrics data={mockData.globalKPIs} />
-              <RecentTransactions transactions={mockData.recentTransactions} />
-              <TopWhales whales={mockData.topWhales} />
-            </>
-          )}
-          {activeTab === "search" && <WalletSearch />}
-          {activeTab === "whale-watch" && <WhaleWatch />}
-          {activeTab === "dev-screener" && <DevScreener />}
-          {activeTab === "tracked-wallets" && <TrackedWallets />}
-          {activeTab === "wallet-overview" && <WalletOverview />}
-          {activeTab === "tx-log" && <TxLog />}
-          {activeTab === "wallet-tagging" && <WalletTagging />}
-          {activeTab === "whale-alerts" && <WhaleAlerts />}
-          {activeTab === "whale-analytics" && <WhaleAnalytics />}
-          {activeTab === "network-metrics" && <NetworkMetrics />}
-          {activeTab === "token-flows" && <TokenFlows />}
-          {activeTab === "sentiment-analysis" && <SentimentAnalysis />}
-          {activeTab === "alert-rules" && <AlertRules />}
-          {activeTab === "alert-history" && <AlertHistory />}
-          {activeTab === "unlock-calendar" && <UnlockCalendar />}
-          {activeTab === "report-history" && <ReportHistory />}
-          {activeTab === "api-docs" && <APIDocumentation />}
+          {renderContent()}
         </div>
       </div>
     </WalletProvider>

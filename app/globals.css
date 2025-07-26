@@ -1,68 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* SEI Network Inspired Color Palette */
+    --background: 220 25% 97%;
+    --foreground: 220 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 15% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* SEI Primary Blue Gradient */
+    --primary: 215 85% 60%; /* #71b0db - SEI Light Blue */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 40% 95%;
+    --secondary-foreground: 220 15% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 25% 94%;
+    --muted-foreground: 220 10% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* SEI Accent Colors */
+    --accent: 210 70% 65%; /* #6a8dc4 - SEI Medium Blue */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 25% 88%;
+    --input: 220 25% 88%;
+    --ring: 215 85% 60%;
 
-    --radius: 0.5rem;
+    /* SEI Chart Colors */
+    --chart-1: 215 85% 60%; /* #71b0db */
+    --chart-2: 210 70% 65%; /* #6a8dc4 */
+    --chart-3: 220 60% 55%; /* #445fb5 */
+    --chart-4: 245 65% 45%; /* #452797 */
+    --chart-5: 245 70% 35%; /* #272090 */
+
+    --radius: 0.75rem;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark Mode with SEI Network Theme */
+    --background: 245 25% 8%;
+    --foreground: 220 15% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 245 20% 10%;
+    --card-foreground: 220 15% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 245 20% 10%;
+    --popover-foreground: 220 15% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* SEI Primary in Dark Mode */
+    --primary: 215 85% 65%; /* Brighter SEI blue for dark mode */
+    --primary-foreground: 245 25% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 245 15% 15%;
+    --secondary-foreground: 220 15% 85%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 245 15% 15%;
+    --muted-foreground: 220 10% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    /* SEI Accent in Dark Mode */
+    --accent: 210 70% 70%; /* Brighter accent for dark mode */
+    --accent-foreground: 245 25% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 220 15% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 245 15% 18%;
+    --input: 245 15% 18%;
+    --ring: 215 85% 65%;
+
+    /* SEI Chart Colors for Dark Mode */
+    --chart-1: 215 85% 70%; /* Brighter versions */
+    --chart-2: 210 70% 75%;
+    --chart-3: 220 60% 65%;
+    --chart-4: 245 65% 55%;
+    --chart-5: 245 70% 45%;
   }
 }
 
@@ -72,14 +94,144 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* SEI Network Gradient Background */
+    background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(220 30% 98%) 100%);
+  }
+  
+  .dark body {
+    background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(245 20% 6%) 100%);
+  }
+
+  /* Typography Enhancements */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
   }
 }
 
-/* Sei Network Theme Classes */
+/* SEI Network Enhanced Theme Classes */
 .sei-card {
-  @apply bg-white border rounded-lg shadow-sm;
+  @apply bg-white/80 backdrop-blur-sm border border-border/50 rounded-xl shadow-lg;
+  background: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(113,176,219,0.05) 100%);
 }
 
 .dark .sei-card {
-    @apply bg-gray-800 border-gray-700;
+  @apply bg-card/80 backdrop-blur-sm border-border/50;
+  background: linear-gradient(145deg, hsl(var(--card)) 0%, rgba(113,176,219,0.1) 100%);
+}
+
+/* SEI Gradient Buttons */
+.sei-gradient-btn {
+  background: linear-gradient(135deg, #71b0db 0%, #6a8dc4 50%, #445fb5 100%);
+  @apply text-white font-medium px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300;
+}
+
+.sei-gradient-btn:hover {
+  background: linear-gradient(135deg, #6a8dc4 0%, #445fb5 50%, #452797 100%);
+  transform: translateY(-2px);
+}
+
+/* SEI Accent Gradients */
+.sei-accent-bg {
+  background: linear-gradient(135deg, rgba(113,176,219,0.1) 0%, rgba(106,141,196,0.1) 100%);
+}
+
+.dark .sei-accent-bg {
+  background: linear-gradient(135deg, rgba(113,176,219,0.15) 0%, rgba(106,141,196,0.15) 100%);
+}
+
+/* SEI Chart Enhancements */
+.sei-chart-container {
+  @apply rounded-xl p-6;
+  background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(113,176,219,0.03) 100%);
+  border: 1px solid rgba(113,176,219,0.2);
+}
+
+.dark .sei-chart-container {
+  background: linear-gradient(145deg, hsl(var(--card)) 0%, rgba(113,176,219,0.08) 100%);
+  border: 1px solid rgba(113,176,219,0.3);
+}
+
+/* SEI Sidebar Enhancements */
+.sei-sidebar {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(113,176,219,0.05) 100%);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(113,176,219,0.2);
+}
+
+.dark .sei-sidebar {
+  background: linear-gradient(180deg, hsl(var(--card)) 0%, rgba(113,176,219,0.1) 100%);
+  border-right: 1px solid rgba(113,176,219,0.3);
+}
+
+/* SEI Glow Effects */
+.sei-glow {
+  box-shadow: 0 0 20px rgba(113,176,219,0.3);
+}
+
+.sei-glow-hover:hover {
+  box-shadow: 0 0 30px rgba(113,176,219,0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+/* SEI Status Indicators */
+.sei-status-active {
+  @apply bg-green-500/20 text-green-700 border border-green-500/30 rounded-full px-3 py-1 text-sm font-medium;
+}
+
+.sei-status-warning {
+  @apply bg-yellow-500/20 text-yellow-700 border border-yellow-500/30 rounded-full px-3 py-1 text-sm font-medium;
+}
+
+.sei-status-danger {
+  @apply bg-red-500/20 text-red-700 border border-red-500/30 rounded-full px-3 py-1 text-sm font-medium;
+}
+
+.dark .sei-status-active {
+  @apply text-green-400 border-green-400/30;
+}
+
+.dark .sei-status-warning {
+  @apply text-yellow-400 border-yellow-400/30;
+}
+
+.dark .sei-status-danger {
+  @apply text-red-400 border-red-400/30;
+}
+
+/* SEI Animation Classes */
+.sei-fade-in {
+  animation: seifadeIn 0.5s ease-out;
+}
+
+.sei-slide-up {
+  animation: seislideUp 0.3s ease-out;
+}
+
+@keyframes seifadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes seislideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

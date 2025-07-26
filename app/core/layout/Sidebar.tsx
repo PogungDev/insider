@@ -16,89 +16,66 @@ export function Sidebar({ setActiveTab }: SidebarProps) {
     setExpandedGroups(prev => prev.includes(groupId) ? prev.filter(id => id !== groupId) : [...prev, groupId])
   }
 
-  // Sidebar items structure
+  // Ultra-Dense Architecture - 5 Main Tabs
   const sidebarItems = [
     {
-      id: "overview",
-      label: "Dashboard Overview",
-      icon: Home,
-      badge: null,
-      subItems: []
-    },
-    {
-      id: "wallet-explorer",
-      label: "Wallet Explorer",
-      icon: Search,
-      badge: "Pro",
+      id: "wallet-intelligence-hub",
+      label: "Wallet Intelligence Hub",
+      icon: Brain,
+      badge: "AI",
       subItems: [
-        { id: "search", label: "Wallet Discovery", icon: Search },
-        { id: "wallet-overview", label: "Wallet Profile", icon: Wallet },
-        { id: "tx-log", label: "Transaction Log", icon: Activity },
-        { id: "wallet-tagging", label: "Wallet Tagging", icon: Tag },
-        { id: "tracked-wallets", label: "Tracked Wallets", icon: Users }
+        { id: "wallet-graph-explorer", label: "Graph Explorer", icon: Search },
+        { id: "identity-profiler", label: "Identity Profiler", icon: Wallet },
+        { id: "behavioral-clustering", label: "Behavioral Clustering", icon: Users },
+        { id: "annotated-timeline", label: "Annotated Timeline", icon: Activity }
       ]
     },
     {
-      id: "whale-tracking",
-      label: "Whale Tracking",
+      id: "risk-radar",
+      label: "Risk Radar",
+      icon: Shield,
+      badge: "Live",
+      subItems: [
+        { id: "threat-monitor", label: "Threat Monitor", icon: Bell },
+        { id: "contract-auditor", label: "Contract Auditor", icon: Code },
+        { id: "liquidity-scanner", label: "Liquidity Scanner", icon: Target },
+        { id: "exploit-simulator", label: "Exploit Simulator", icon: Zap }
+      ]
+    },
+    {
+      id: "capital-flow-nexus",
+      label: "Capital Flow Nexus",
       icon: TrendingUp,
       badge: "Hot",
       subItems: [
-        { id: "whale-watch", label: "Whale Watch", icon: Eye },
-        { id: "whale-alerts", label: "Whale Alerts", icon: Bell },
-        { id: "whale-analytics", label: "Whale Analytics", icon: BarChart3 }
+        { id: "liquidity-radar", label: "Liquidity Radar", icon: Eye },
+        { id: "flow-pattern-detector", label: "Flow Pattern Detector", icon: ArrowRightCircle },
+        { id: "smart-money-tracker", label: "Smart Money Tracker", icon: Star },
+        { id: "cross-chain-monitor", label: "Cross-Chain Monitor", icon: BarChart3 }
       ]
     },
     {
-      id: "analytics",
-      label: "Advanced Analytics",
-      icon: PieChartIcon,
-      badge: null,
+      id: "behavioral-dna",
+      label: "Behavioral DNA",
+      icon: Bot,
+      badge: "ML",
       subItems: [
-        { id: "dev-screener", label: "Dev Screener", icon: Bot },
-        { id: "network-metrics", label: "Network Metrics", icon: Activity },
-        { id: "token-flows", label: "Token Flows", icon: ArrowRightCircle },
-        { id: "sentiment-analysis", label: "Sentiment Analysis", icon: Brain }
+        { id: "habit-analyzer", label: "Habit Analyzer", icon: PieChartIcon },
+        { id: "sentiment-decoder", label: "Sentiment Decoder", icon: Brain },
+        { id: "personality-profiler", label: "Personality Profiler", icon: Tag },
+        { id: "predictive-model", label: "Predictive Model", icon: BarChartIcon }
       ]
     },
     {
-      id: "alerts",
-      label: "Smart Alerts",
-      icon: Bell,
-      badge: "3",
+      id: "alpha-synthesis-engine",
+      label: "Alpha Synthesis Engine",
+      icon: Database,
+      badge: "Pro",
       subItems: [
-        { id: "alert-rules", label: "Alert Rules", icon: Settings },
-        { id: "alert-history", label: "Alert History", icon: Clock }
-      ]
-    },
-    {
-      id: "unlocks",
-      label: "Token Unlocks",
-      icon: Unlock,
-      badge: null,
-      subItems: [
-        { id: "unlock-calendar", label: "Unlock Calendar", icon: CalendarDays },
-        { id: "unlock-impact", label: "Impact Analysis", icon: BarChartIcon }
-      ]
-    },
-    {
-      id: "reports",
-      label: "Custom Reports",
-      icon: FileText,
-      badge: null,
-      subItems: [
-        { id: "report-history", label: "Report History", icon: FileText },
-        { id: "report-builder", label: "Report Builder", icon: Edit }
-      ]
-    },
-    {
-      id: "api-management",
-      label: "API Management",
-      icon: Code,
-      badge: "Dev",
-      subItems: [
-        { id: "api-docs", label: "API Documentation", icon: BookOpen },
-        { id: "key-manager", label: "API Key Manager", icon: Key }
+        { id: "strategy-backtester", label: "Strategy Backtester", icon: BarChart3 },
+        { id: "report-generator", label: "Report Generator", icon: FileText },
+        { id: "alpha-ranking", label: "Alpha Ranking", icon: Star },
+        { id: "ai-recommendations", label: "AI Recommendations", icon: Bot }
       ]
     }
   ];
