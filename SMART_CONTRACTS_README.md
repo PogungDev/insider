@@ -2,7 +2,7 @@
 
 ## 📋 Overview
 
-INSIDER platform kini mendukung integrasi smart contract Solidity untuk analytics dan monitoring on-chain yang lebih mendalam. Smart contract `InsiderAnalytics` menyediakan infrastruktur untuk:
+INSIDER platform now supports Solidity smart contract integration for deeper on-chain analytics and monitoring. The `InsiderAnalytics` smart contract provides infrastructure for:
 
 - ✅ **Wallet Registration & Risk Scoring**
 - 🚨 **Real-time Anomaly Detection**
@@ -309,7 +309,7 @@ export async function GET(req, res) {
 
 ## 🌐 Multi-Chain Support
 
-Contract dapat di-deploy ke berbagai network:
+Contract can be deployed to various networks:
 
 - **Ethereum Mainnet** - Production deployment
 - **Sepolia Testnet** - Testing dan development
@@ -374,15 +374,15 @@ const monitorEvents = () => {
 ```solidity
 // Batch operations untuk efisiensi gas
 function batchRegisterWallets(address[] memory wallets) external onlyAuthorizedAnalyzer {
-    for (uint256 i = 0; i < wallets.length; i++) {
-        if (!walletProfiles[wallets[i]].isRegistered) {
-            walletProfiles[wallets[i]].isRegistered = true;
-            walletProfiles[wallets[i]].riskScore = 500;
-            walletProfiles[wallets[i]].lastActivity = block.timestamp;
-            emit WalletRegistered(wallets[i], block.timestamp);
+        for (uint256 i = 0; i < wallets.length; i++) {
+            if (!walletProfiles[wallets[i]].isRegistered) {
+                walletProfiles[wallets[i]].isRegistered = true;
+                walletProfiles[wallets[i]].riskScore = 500;
+                walletProfiles[wallets[i]].lastActivity = block.timestamp;
+                emit WalletRegistered(wallets[i], block.timestamp);
+            }
         }
     }
-}
 ```
 
 ## 🔒 Security Considerations
@@ -469,7 +469,7 @@ npx hardhat size-contracts
 
 ## 📞 Support
 
-Untuk bantuan teknis:
+For technical support:
 - 📧 Email: dev@insider.ai
 - 💬 Discord: [INSIDER Community](https://discord.gg/insider)
 - 📖 Docs: [docs.insider.ai](https://docs.insider.ai)

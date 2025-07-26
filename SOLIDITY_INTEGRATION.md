@@ -2,7 +2,7 @@
 
 ## 📋 Ringkasan
 
-INSIDER platform kini telah diintegrasikan dengan smart contract Solidity untuk memberikan analitik blockchain yang lebih mendalam dan interaksi on-chain yang real-time. Integrasi ini memungkinkan platform untuk:
+INSIDER platform has now been integrated with Solidity smart contracts to provide deeper blockchain analytics and real-time on-chain interactions. This integration enables the platform to:
 
 - 🔍 **Monitoring Smart Contract**: Memantau aktivitas smart contract secara real-time
 - 📊 **Analytics On-Chain**: Menyediakan analitik langsung dari blockchain
@@ -99,9 +99,9 @@ npm run dev
 - Historical risk trend analysis
 
 ### 2. Anomaly Detection
-- Deteksi aktivitas mencurigakan
+- Detection of suspicious activities
 - Alert system untuk anomali
-- Classification berdasarkan severity
+- Classification based on severity
 
 ### 3. Token Unlock Monitoring
 - Tracking jadwal unlock token

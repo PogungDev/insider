@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-export default function Error({
+export default function DashboardError({
   error,
   reset,
 }: {
@@ -11,15 +11,15 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error('Application error:', error);
+    console.error('Dashboard error:', error);
   }, [error]);
 
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="bg-card p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-4 text-destructive">Something went wrong!</h2>
+        <h2 className="text-2xl font-bold mb-4 text-destructive">Dashboard Error</h2>
         <p className="mb-6 text-muted-foreground">
-          {error.message || 'An unexpected error occurred. Please try again.'}
+          {error.message || 'An unexpected error occurred in the dashboard. Please try again.'}
         </p>
         <div className="flex justify-end">
           <button
