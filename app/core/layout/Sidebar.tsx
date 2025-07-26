@@ -34,7 +34,8 @@ export function Sidebar({ setActiveTab }: SidebarProps) {
         { id: "search", label: "Wallet Discovery", icon: Search },
         { id: "wallet-overview", label: "Wallet Profile", icon: Wallet },
         { id: "tx-log", label: "Transaction Log", icon: Activity },
-        { id: "wallet-tags", label: "Wallet Tagging", icon: Tag }
+        { id: "wallet-tagging", label: "Wallet Tagging", icon: Tag },
+        { id: "tracked-wallets", label: "Tracked Wallets", icon: Users }
       ]
     },
     {
@@ -54,6 +55,7 @@ export function Sidebar({ setActiveTab }: SidebarProps) {
       icon: PieChartIcon,
       badge: null,
       subItems: [
+        { id: "dev-screener", label: "Dev Screener", icon: Bot },
         { id: "network-metrics", label: "Network Metrics", icon: Activity },
         { id: "token-flows", label: "Token Flows", icon: ArrowRightCircle },
         { id: "sentiment-analysis", label: "Sentiment Analysis", icon: Brain }
@@ -65,7 +67,7 @@ export function Sidebar({ setActiveTab }: SidebarProps) {
       icon: Bell,
       badge: "3",
       subItems: [
-        { id: "alert-setup", label: "Setup Alerts", icon: Settings },
+        { id: "alert-rules", label: "Alert Rules", icon: Settings },
         { id: "alert-history", label: "Alert History", icon: Clock }
       ]
     },
@@ -75,7 +77,7 @@ export function Sidebar({ setActiveTab }: SidebarProps) {
       icon: Unlock,
       badge: null,
       subItems: [
-        { id: "unlock-schedule", label: "Unlock Schedule", icon: CalendarDays },
+        { id: "unlock-calendar", label: "Unlock Calendar", icon: CalendarDays },
         { id: "unlock-impact", label: "Impact Analysis", icon: BarChartIcon }
       ]
     },
@@ -85,8 +87,8 @@ export function Sidebar({ setActiveTab }: SidebarProps) {
       icon: FileText,
       badge: null,
       subItems: [
-        { id: "report-builder", label: "Report Builder", icon: Edit },
-        { id: "saved-reports", label: "Saved Reports", icon: Save }
+        { id: "report-history", label: "Report History", icon: FileText },
+        { id: "report-builder", label: "Report Builder", icon: Edit }
       ]
     },
     {
