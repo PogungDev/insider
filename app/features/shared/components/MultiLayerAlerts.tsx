@@ -440,13 +440,13 @@ export function MultiLayerAlerts({
         )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 sm:p-4">
             <div className="flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-red-500" />
               <div>
-                <p className="text-2xl font-bold">{criticalCount}</p>
+                <p className="text-xl sm:text-2xl font-bold">{criticalCount}</p>
                 <p className="text-xs text-muted-foreground">Critical Alerts</p>
               </div>
             </div>
@@ -454,11 +454,11 @@ export function MultiLayerAlerts({
         </Card>
         
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 sm:p-4">
             <div className="flex items-center gap-2">
               <Bell className="h-5 w-5 text-blue-500" />
               <div>
-                <p className="text-2xl font-bold">{unreadCount}</p>
+                <p className="text-xl sm:text-2xl font-bold">{unreadCount}</p>
                 <p className="text-xs text-muted-foreground">Unread Alerts</p>
               </div>
             </div>
@@ -466,11 +466,11 @@ export function MultiLayerAlerts({
         </Card>
         
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 sm:p-4">
             <div className="flex items-center gap-2">
               <Target className="h-5 w-5 text-green-500" />
               <div>
-                <p className="text-2xl font-bold">{alertRules.filter(r => r.isEnabled).length}</p>
+                <p className="text-xl sm:text-2xl font-bold">{alertRules.filter(r => r.isEnabled).length}</p>
                 <p className="text-xs text-muted-foreground">Active Rules</p>
               </div>
             </div>
@@ -478,11 +478,11 @@ export function MultiLayerAlerts({
         </Card>
         
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 sm:p-4">
             <div className="flex items-center gap-2">
               <CheckCircle className="h-5 w-5 text-purple-500" />
               <div>
-                <p className="text-2xl font-bold">{alerts.filter(a => a.isActive).length}</p>
+                <p className="text-xl sm:text-2xl font-bold">{alerts.filter(a => a.isActive).length}</p>
                 <p className="text-xs text-muted-foreground">Total Active</p>
               </div>
             </div>
@@ -491,46 +491,50 @@ export function MultiLayerAlerts({
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <div className="flex items-center justify-between">
-          <TabsList>
-            <TabsTrigger value="active">Active Alerts ({alerts.filter(a => a.isActive).length})</TabsTrigger>
-            <TabsTrigger value="dismissed">Dismissed ({alerts.filter(a => !a.isActive).length})</TabsTrigger>
-            <TabsTrigger value="rules">Alert Rules ({alertRules.length})</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
-          </TabsList>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="overflow-x-auto w-full sm:w-auto">
+            <TabsList className="grid w-full sm:w-auto grid-cols-2 sm:grid-cols-4">
+              <TabsTrigger value="active" className="text-xs sm:text-sm">Active ({alerts.filter(a => a.isActive).length})</TabsTrigger>
+              <TabsTrigger value="dismissed" className="text-xs sm:text-sm">Dismissed ({alerts.filter(a => !a.isActive).length})</TabsTrigger>
+              <TabsTrigger value="rules" className="text-xs sm:text-sm">Rules ({alertRules.length})</TabsTrigger>
+              <TabsTrigger value="settings" className="text-xs sm:text-sm">Settings</TabsTrigger>
+            </TabsList>
+          </div>
           
-          <div className="flex items-center gap-2">
-            <Select value={filterType} onValueChange={setFilterType}>
-              <SelectTrigger className="w-32">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Types</SelectItem>
-                <SelectItem value="critical">Critical</SelectItem>
-                <SelectItem value="high">High</SelectItem>
-                <SelectItem value="medium">Medium</SelectItem>
-                <SelectItem value="low">Low</SelectItem>
-                <SelectItem value="info">Info</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
+            <div className="flex gap-2 w-full sm:w-auto">
+              <Select value={filterType} onValueChange={setFilterType}>
+                <SelectTrigger className="w-full sm:w-32">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Types</SelectItem>
+                  <SelectItem value="critical">Critical</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="info">Info</SelectItem>
+                </SelectContent>
+              </Select>
+              
+              <Select value={filterCategory} onValueChange={setFilterCategory}>
+                <SelectTrigger className="w-full sm:w-36">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Categories</SelectItem>
+                  <SelectItem value="security">Security</SelectItem>
+                  <SelectItem value="trading">Trading</SelectItem>
+                  <SelectItem value="whale">Whale</SelectItem>
+                  <SelectItem value="defi">DeFi</SelectItem>
+                  <SelectItem value="arbitrage">Arbitrage</SelectItem>
+                  <SelectItem value="risk">Risk</SelectItem>
+                  <SelectItem value="pattern">Pattern</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
             
-            <Select value={filterCategory} onValueChange={setFilterCategory}>
-              <SelectTrigger className="w-36">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="security">Security</SelectItem>
-                <SelectItem value="trading">Trading</SelectItem>
-                <SelectItem value="whale">Whale</SelectItem>
-                <SelectItem value="defi">DeFi</SelectItem>
-                <SelectItem value="arbitrage">Arbitrage</SelectItem>
-                <SelectItem value="risk">Risk</SelectItem>
-                <SelectItem value="pattern">Pattern</SelectItem>
-              </SelectContent>
-            </Select>
-            
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
               <Switch 
                 checked={showOnlyUnread} 
                 onCheckedChange={setShowOnlyUnread}
@@ -546,52 +550,54 @@ export function MultiLayerAlerts({
               <Card key={alert.id} className={`transition-all hover:shadow-md ${
                 !alert.isRead ? 'border-l-4 border-l-blue-500' : ''
               } ${alert.isPinned ? 'bg-muted/30' : ''}`}>
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-3 flex-1">
-                      <div className="flex items-center gap-2">
+                <CardContent className="p-3 sm:p-4">
+                  <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-4">
+                    <div className="flex items-start gap-2 sm:gap-3 flex-1 w-full sm:w-auto">
+                      <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
                         {getTypeIcon(alert.type)}
                         {getCategoryIcon(alert.category)}
                       </div>
                       
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-2">
-                          <h3 className="font-semibold">{alert.title}</h3>
-                          <Badge className={getTypeColor(alert.type)}>
-                            {alert.type}
-                          </Badge>
-                          <Badge variant="outline">
-                            {alert.category}
-                          </Badge>
-                          {alert.isPinned && <Badge variant="secondary">Pinned</Badge>}
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
+                          <h3 className="font-semibold text-sm sm:text-base">{alert.title}</h3>
+                          <div className="flex flex-wrap gap-1">
+                            <Badge className={`${getTypeColor(alert.type)} text-xs`}>
+                              {alert.type}
+                            </Badge>
+                            <Badge variant="outline" className="text-xs">
+                              {alert.category}
+                            </Badge>
+                            {alert.isPinned && <Badge variant="secondary" className="text-xs">Pinned</Badge>}
+                          </div>
                         </div>
                         
-                        <p className="text-sm text-muted-foreground mb-3">{alert.description}</p>
+                        <p className="text-xs sm:text-sm text-muted-foreground mb-3">{alert.description}</p>
                         
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs mb-3">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 text-xs mb-3">
                           <div>
                             <p className="text-muted-foreground">Severity</p>
                             <div className="flex items-center gap-1">
-                              <Progress value={alert.severity} className="h-1 w-12" />
-                              <span className="font-medium">{alert.severity}%</span>
+                              <Progress value={alert.severity} className="h-1 w-8 sm:w-12" />
+                              <span className="font-medium text-xs">{alert.severity}%</span>
                             </div>
                           </div>
                           <div>
                             <p className="text-muted-foreground">Confidence</p>
-                            <p className="font-medium">{alert.confidence}%</p>
+                            <p className="font-medium text-xs">{alert.confidence}%</p>
                           </div>
                           <div>
                             <p className="text-muted-foreground">Impact</p>
-                            <p className="font-medium">{alert.estimatedImpact}%</p>
+                            <p className="font-medium text-xs">{alert.estimatedImpact}%</p>
                           </div>
                           <div>
                             <p className="text-muted-foreground">Source</p>
-                            <p className="font-medium">{alert.source}</p>
+                            <p className="font-medium text-xs truncate">{alert.source}</p>
                           </div>
                         </div>
                         
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0">
+                          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs text-muted-foreground">
                             <div className="flex items-center gap-1">
                               <Clock className="h-3 w-3" />
                               <span>{formatTimeAgo(alert.timestamp)}</span>
@@ -615,12 +621,13 @@ export function MultiLayerAlerts({
                       </div>
                     </div>
                     
-                    <div className="flex flex-col gap-2 ml-4">
-                      <div className="flex gap-1">
+                    <div className="flex flex-row sm:flex-col gap-1 sm:gap-2 w-full sm:w-auto">
+                      <div className="flex gap-1 flex-1 sm:flex-none">
                         <Button 
                           size="sm" 
                           variant="ghost"
                           onClick={() => toggleAlertRead(alert.id)}
+                          className="flex-1 sm:flex-none px-2 sm:px-3"
                         >
                           {alert.isRead ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
                         </Button>
@@ -628,6 +635,7 @@ export function MultiLayerAlerts({
                           size="sm" 
                           variant="ghost"
                           onClick={() => toggleAlertPin(alert.id)}
+                          className="flex-1 sm:flex-none px-2 sm:px-3"
                         >
                           <Target className={`h-3 w-3 ${alert.isPinned ? 'text-blue-500' : ''}`} />
                         </Button>
@@ -635,18 +643,20 @@ export function MultiLayerAlerts({
                           size="sm" 
                           variant="ghost"
                           onClick={() => dismissAlert(alert.id)}
+                          className="flex-1 sm:flex-none px-2 sm:px-3"
                         >
                           <XCircle className="h-3 w-3" />
                         </Button>
                       </div>
                       
-                      <div className="flex flex-col gap-1">
+                      <div className="flex flex-row sm:flex-col gap-1 flex-1 sm:flex-none">
                         {alert.actions.map((action) => (
                           <Button
                             key={action.id}
                             size="sm"
                             variant={action.type === 'primary' ? 'default' : action.type === 'danger' ? 'destructive' : 'outline'}
                             onClick={() => handleAlertAction(alert.id, action.id)}
+                            className="flex-1 sm:flex-none text-xs px-2 sm:px-3"
                           >
                             {action.label}
                           </Button>
@@ -672,30 +682,35 @@ export function MultiLayerAlerts({
             {alertRules.map((rule) => (
               <Card key={rule.id}>
                 <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-lg">{rule.name}</CardTitle>
-                      <CardDescription>Category: {rule.category} • Priority: {rule.priority}</CardDescription>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+                    <div className="flex-1">
+                      <CardTitle className="text-base sm:text-lg">{rule.name}</CardTitle>
+                      <CardDescription className="text-xs sm:text-sm">Category: {rule.category} • Priority: {rule.priority}</CardDescription>
                     </div>
-                    <Switch 
-                      checked={rule.isEnabled} 
-                      onCheckedChange={() => toggleRule(rule.id)}
-                    />
+                    <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                      <span className="text-xs sm:text-sm text-muted-foreground">{rule.isEnabled ? 'Enabled' : 'Disabled'}</span>
+                      <Switch 
+                        checked={rule.isEnabled} 
+                        onCheckedChange={() => toggleRule(rule.id)}
+                      />
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="text-sm">
-                      <p className="font-medium mb-1">Conditions:</p>
-                      {rule.conditions.map((condition, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-xs text-muted-foreground">
-                          {idx > 0 && <span className="text-blue-600">{condition.logic}</span>}
-                          <span>{condition.field} {condition.operator} {condition.value}</span>
-                        </div>
-                      ))}
+                      <p className="font-medium mb-2 text-xs sm:text-sm">Conditions:</p>
+                      <div className="space-y-1">
+                        {rule.conditions.map((condition, idx) => (
+                          <div key={idx} className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-xs text-muted-foreground">
+                            {idx > 0 && <span className="text-blue-600 font-medium">{condition.logic}</span>}
+                            <span className="break-all">{condition.field} {condition.operator} {condition.value}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                     
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs text-muted-foreground">
                       <span>Cooldown: {rule.cooldown}m</span>
                       {rule.lastTriggered && (
                         <span>Last triggered: {formatTimeAgo(rule.lastTriggered)}</span>
@@ -708,33 +723,33 @@ export function MultiLayerAlerts({
           </div>
         </TabsContent>
 
-        <TabsContent value="settings" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <TabsContent value="settings" className="space-y-4 sm:space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Notification Settings</CardTitle>
+                <CardTitle className="text-base sm:text-lg">Notification Settings</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">Sound Notifications</p>
-                    <p className="text-sm text-muted-foreground">Play sound for new alerts</p>
+              <CardContent className="space-y-3 sm:space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+                  <div className="flex-1">
+                    <p className="font-medium text-sm sm:text-base">Sound Notifications</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Play sound for new alerts</p>
                   </div>
                   <Switch checked={soundEnabled} onCheckedChange={setSoundEnabled} />
                 </div>
                 
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">Push Notifications</p>
-                    <p className="text-sm text-muted-foreground">Browser notifications</p>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+                  <div className="flex-1">
+                    <p className="font-medium text-sm sm:text-base">Push Notifications</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Browser notifications</p>
                   </div>
                   <Switch checked={notificationsEnabled} onCheckedChange={setNotificationsEnabled} />
                 </div>
                 
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">Auto Refresh</p>
-                    <p className="text-sm text-muted-foreground">Automatically check for new alerts</p>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+                  <div className="flex-1">
+                    <p className="font-medium text-sm sm:text-base">Auto Refresh</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">Automatically check for new alerts</p>
                   </div>
                   <Switch checked={autoRefresh} onCheckedChange={setAutoRefresh} />
                 </div>
@@ -743,12 +758,12 @@ export function MultiLayerAlerts({
             
             <Card>
               <CardHeader>
-                <CardTitle>Alert Filtering</CardTitle>
+                <CardTitle className="text-base sm:text-lg">Alert Filtering</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-3 sm:space-y-4">
                 <div>
-                  <p className="font-medium mb-2">Minimum Severity Threshold</p>
-                  <div className="px-2">
+                  <p className="font-medium mb-2 text-sm sm:text-base">Minimum Severity Threshold</p>
+                  <div className="px-1 sm:px-2">
                     <Slider
                       value={severityThreshold}
                       onValueChange={setSeverityThreshold}

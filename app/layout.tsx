@@ -1,35 +1,34 @@
-import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
-import { Web3Provider } from '@/components/providers/Web3Provider'
-import './globals.css'
+'use client';
 
-export const metadata: Metadata = {
-  title: 'INSIDER - Sei Blockchain Analytics',
-  description: 'AI-powered blockchain analytics platform for Sei ecosystem',
-  generator: 'Next.js',
-}
+import { Web3Provider } from '@/components/providers/Web3Provider'
+import { Suspense } from 'react'
+import ErrorBoundary from '@/components/ErrorBoundary'
+import Fallback from './fallback'
+import './globals.css'
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+
+
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <style>{`
-html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
-  --font-mono: ${GeistMono.variable};
-}
-        `}</style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="theme-color" content="#000000" />
+        <title>Insider Analytics - Ultra-Dense Architecture</title>
       </head>
       <body>
-        <Web3Provider>
-          {children}
-        </Web3Provider>
+        <ErrorBoundary>
+          <Suspense fallback={<Fallback />}>
+            <Web3Provider>
+              {children}
+            </Web3Provider>
+          </Suspense>
+        </ErrorBoundary>
       </body>
     </html>
   )

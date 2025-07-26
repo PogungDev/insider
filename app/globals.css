@@ -44,6 +44,16 @@
     --chart-4: 245 65% 45%; /* #452797 */
     --chart-5: 245 70% 35%; /* #272090 */
 
+    /* Sidebar Variables */
+    --sidebar-background: 220 25% 97%;
+    --sidebar-foreground: 220 15% 15%;
+    --sidebar-primary: 215 85% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 70% 65%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 25% 88%;
+    --sidebar-ring: 215 85% 60%;
+
     --radius: 0.75rem;
   }
 
@@ -85,6 +95,16 @@
     --chart-3: 220 60% 65%;
     --chart-4: 245 65% 55%;
     --chart-5: 245 70% 45%;
+
+    /* Sidebar Variables for Dark Mode */
+    --sidebar-background: 245 25% 8%;
+    --sidebar-foreground: 220 15% 95%;
+    --sidebar-primary: 215 85% 65%;
+    --sidebar-primary-foreground: 245 25% 8%;
+    --sidebar-accent: 210 70% 70%;
+    --sidebar-accent-foreground: 245 25% 8%;
+    --sidebar-border: 245 15% 18%;
+    --sidebar-ring: 215 85% 65%;
   }
 }
 
@@ -180,58 +200,206 @@
   transition: box-shadow 0.3s ease;
 }
 
-/* SEI Status Indicators */
-.sei-status-active {
-  @apply bg-green-500/20 text-green-700 border border-green-500/30 rounded-full px-3 py-1 text-sm font-medium;
+/* Gradient Background Classes */
+.gradient-blue {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
 }
 
-.sei-status-warning {
-  @apply bg-yellow-500/20 text-yellow-700 border border-yellow-500/30 rounded-full px-3 py-1 text-sm font-medium;
+.dark .gradient-blue {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
 }
 
-.sei-status-danger {
-  @apply bg-red-500/20 text-red-700 border border-red-500/30 rounded-full px-3 py-1 text-sm font-medium;
+.gradient-purple {
+  background: linear-gradient(135deg, #e9d5ff 0%, #d8b4fe 100%);
 }
 
-.dark .sei-status-active {
-  @apply text-green-400 border-green-400/30;
+.dark .gradient-purple {
+  background: linear-gradient(135deg, #581c87 0%, #7c3aed 100%);
 }
 
-.dark .sei-status-warning {
-  @apply text-yellow-400 border-yellow-400/30;
+.gradient-green {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
 }
 
-.dark .sei-status-danger {
-  @apply text-red-400 border-red-400/30;
+.dark .gradient-green {
+  background: linear-gradient(135deg, #064e3b 0%, #059669 100%);
 }
 
-/* SEI Animation Classes */
-.sei-fade-in {
-  animation: seifadeIn 0.5s ease-out;
+/* Interactive Button Styles */
+.interactive-button {
+  @apply transition-all duration-200 ease-in-out;
+  cursor: pointer;
+  user-select: none;
 }
 
-.sei-slide-up {
-  animation: seislideUp 0.3s ease-out;
+.interactive-button:hover {
+  @apply bg-accent/10 text-accent-foreground;
+  transform: translateX(2px);
 }
 
-@keyframes seifadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+.interactive-button:active {
+  @apply bg-accent/20;
+  transform: translateX(1px);
+}
+
+/* Sidebar Button Styles */
+.sidebar-button {
+  @apply w-full justify-start text-left mb-1 h-10 px-3 py-2 rounded-md;
+  @apply hover:bg-accent/10 focus:bg-accent/10 active:bg-accent/20;
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.sidebar-button:hover {
+  @apply text-accent-foreground;
+  background-color: rgba(113, 176, 219, 0.1);
+}
+
+.sidebar-button:focus {
+  @apply outline-none ring-2 ring-accent/50;
+}
+
+.sidebar-button:active {
+  background-color: rgba(113, 176, 219, 0.2);
+  transform: scale(0.98);
+}
+
+/* Dark mode sidebar button adjustments */
+.dark .sidebar-button:hover {
+  background-color: rgba(113, 176, 219, 0.15);
+}
+
+.dark .sidebar-button:active {
+  background-color: rgba(113, 176, 219, 0.25);
+}
+
+/* Responsive Container Utilities */
+.responsive-container {
+  @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.responsive-grid {
+  @apply grid gap-4 sm:gap-6;
+}
+
+.responsive-grid-2 {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-4;
+}
+
+.responsive-grid-3 {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+.responsive-grid-4 {
+  @apply grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4;
+}
+
+/* Responsive Card Utilities */
+.responsive-card {
+  @apply p-3 sm:p-4 lg:p-6;
+}
+
+.responsive-card-compact {
+  @apply p-2 sm:p-3;
+}
+
+/* Responsive Text Utilities */
+.responsive-text-lg {
+  @apply text-base sm:text-lg;
+}
+
+.responsive-text-xl {
+  @apply text-lg sm:text-xl;
+}
+
+.responsive-text-2xl {
+  @apply text-xl sm:text-2xl;
+}
+
+.responsive-text-3xl {
+  @apply text-2xl sm:text-3xl;
+}
+
+/* Mobile-First Tab Utilities */
+.mobile-tabs {
+  @apply overflow-x-auto w-full;
+}
+
+.mobile-tabs .tabs-list {
+  @apply grid w-full min-w-max grid-cols-2 sm:grid-cols-4;
+}
+
+.mobile-tabs .tab-trigger {
+  @apply text-xs sm:text-sm px-2 sm:px-4;
+}
+
+/* Mobile-First Filter Utilities */
+.mobile-filters {
+  @apply flex flex-col sm:flex-row gap-2 w-full sm:w-auto;
+}
+
+.mobile-filter-group {
+  @apply flex gap-2 w-full sm:w-auto;
+}
+
+.mobile-filter-select {
+  @apply w-full sm:w-32;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+  .sidebar-mobile {
+    @apply fixed inset-y-0 left-0 z-50 w-64 transform transition-transform duration-300 ease-in-out;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .sidebar-mobile.closed {
+    @apply -translate-x-full;
+  }
+  
+  .sidebar-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50 z-40;
   }
 }
 
-@keyframes seislideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Mobile-First Alert Cards */
+.alert-card-mobile {
+  @apply p-3 sm:p-4;
+}
+
+.alert-card-mobile .alert-header {
+  @apply flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4;
+}
+
+.alert-card-mobile .alert-actions {
+  @apply flex flex-wrap gap-1 sm:gap-2;
+}
+
+.alert-card-mobile .alert-actions button {
+  @apply text-xs sm:text-sm px-2 sm:px-3 py-1;
+}
+
+/* Responsive Metrics */
+.metric-card {
+  @apply p-3 sm:p-4;
+}
+
+.metric-value {
+  @apply text-xl sm:text-2xl lg:text-3xl font-bold;
+}
+
+.metric-label {
+  @apply text-xs sm:text-sm text-muted-foreground;
+}
+
+/* Mobile-First Progress Bars */
+.progress-mobile {
+  @apply w-full h-2 sm:h-3;
+}
+
+/* Responsive Spacing */
+.space-mobile {
+  @apply space-y-3 sm:space-y-4 lg:space-y-6;
+}
+
+.gap-mobile {
+  @apply gap-3 sm:gap-4 lg:gap-6;
 }

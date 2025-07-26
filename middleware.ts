@@ -1,9 +1,49 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ROUTE_MAPPINGS, APP_CONFIG } from './lib/config'
 
+// Cache configuration
+const CACHE_CONTROL_HEADERS = {
+  public: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
+  private: 'private, max-age=3600, stale-while-revalidate=86400',
+  noStore: 'no-store, no-cache, must-revalidate, proxy-revalidate',
+  shortTerm: 'public, max-age=60, s-maxage=60, stale-while-revalidate=300'
+}
+
 // ============================================================================
 // MIDDLEWARE CONFIGURATION
 // ============================================================================
+
+// Function to handle static assets
+function handleStaticAssets(request: NextRequest, response: NextResponse) {
+  const url = request.nextUrl.pathname;
+  if (
+    url.includes('/_next/static/') ||
+    url.includes('/static/') ||
+    url.endsWith('.js') ||
+    url.endsWith('.css') ||
+    url.endsWith('.woff') ||
+    url.endsWith('.woff2') ||
+    url.endsWith('.ttf') ||
+    url.endsWith('.svg') ||
+    url.endsWith('.png') ||
+    url.endsWith('.jpg') ||
+    url.endsWith('.jpeg')
+  ) {
+    // Aggressive caching for static assets
+    response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    response.headers.set('X-Frame-Options', 'DENY');
+    response.headers.set('X-XSS-Protection', '1; mode=block');
+    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    
+    // Prevent aborted requests
+    response.headers.set('Connection', 'keep-alive');
+    response.headers.set('Keep-Alive', 'timeout=5, max=1000');
+    return true;
+  }
+  return false;
+}
 
 const PROTECTED_ROUTES = [
   '/dashboard',
@@ -205,65 +245,38 @@ function addSecurityHeaders(response: NextResponse): void {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   
+  // Skip middleware for webview requests with ide_webview_request_time parameter
+  const hasWebviewParam = request.nextUrl.searchParams.has('ide_webview_request_time')
+  if (hasWebviewParam) {
+    const response = NextResponse.next()
+    response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
+    return response
+  }
+  
   // Handle CORS preflight requests
-  const corsResponse = handleCors(request)
-  if (corsResponse) {
-    return corsResponse
-  }
-  
-  // Check rate limiting
-  if (!checkRateLimit(request)) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Rate limit exceeded',
-        message: 'Too many requests. Please try again later.',
-        retryAfter: Math.ceil(APP_CONFIG.security.rateLimit.window / 1000)
+  if (request.method === 'OPTIONS') {
+    const response = new NextResponse(null, {
+      status: 204,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-API-Key, X-Requested-With',
+        'Access-Control-Max-Age': '86400',
       },
-      { 
-        status: 429,
-        headers: {
-          'Retry-After': Math.ceil(APP_CONFIG.security.rateLimit.window / 1000).toString(),
-          'X-RateLimit-Limit': APP_CONFIG.security.rateLimit.requests.toString(),
-          'X-RateLimit-Remaining': '0',
-          'X-RateLimit-Reset': Math.ceil((Date.now() + APP_CONFIG.security.rateLimit.window) / 1000).toString()
-        }
-      }
-    )
+    });
+    return response;
   }
   
-  // Handle API route redirection to server actions
-  const redirectResponse = redirectToServerAction(request)
-  if (redirectResponse) {
-    return redirectResponse as NextResponse
-  }
-  
-  // API key validation for API routes
-  if (requiresApiKey(pathname)) {
-    const apiKey = request.headers.get('x-api-key') || 
-                   request.headers.get('authorization')?.replace('Bearer ', '')
-    
-    if (!apiKey) {
+  // Simplified rate limiting - only for API routes
+  if (pathname.startsWith('/api/') && !pathname.startsWith('/api-docs')) {
+    if (!checkRateLimit(request)) {
       return NextResponse.json(
         {
           success: false,
-          error: 'API key required',
-          message: 'Please provide a valid API key in the X-API-Key header or Authorization header',
-          documentation: '/api-docs'
+          error: 'Rate limit exceeded',
+          message: 'Too many requests. Please try again later.'
         },
-        { status: 401 }
-      )
-    }
-    
-    if (!validateApiKey(apiKey)) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Invalid API key',
-          message: 'The provided API key is invalid or expired',
-          documentation: '/api-docs'
-        },
-        { status: 403 }
+        { status: 429 }
       )
     }
   }
@@ -271,29 +284,18 @@ export function middleware(request: NextRequest) {
   // Continue with the request
   const response = NextResponse.next()
   
-  // Add security headers
-  addSecurityHeaders(response)
+  // Handle static assets
+  handleStaticAssets(request, response);
   
-  // Add CORS headers for allowed origins
-  const origin = request.headers.get('origin')
-  if (origin && (APP_CONFIG.security.cors.origins as readonly string[]).includes(origin)) {
-    response.headers.set('Access-Control-Allow-Origin', origin)
-    response.headers.set('Access-Control-Allow-Credentials', 'true')
-  }
+  // Add basic security headers
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  response.headers.set('X-Frame-Options', 'DENY')
+  response.headers.set('X-XSS-Protection', '1; mode=block')
   
-  // Add rate limit headers
-  const rateLimitKey = getRateLimitKey(request)
-  const rateLimitEntry = rateLimitMap.get(rateLimitKey)
-  
-  if (rateLimitEntry) {
-    response.headers.set('X-RateLimit-Limit', APP_CONFIG.security.rateLimit.requests.toString())
-    response.headers.set('X-RateLimit-Remaining', Math.max(0, APP_CONFIG.security.rateLimit.requests - rateLimitEntry.count).toString())
-    response.headers.set('X-RateLimit-Reset', Math.ceil(rateLimitEntry.resetTime / 1000).toString())
-  }
-  
-  // Add custom headers
-  response.headers.set('X-Powered-By', APP_CONFIG.name)
-  response.headers.set('X-Version', APP_CONFIG.version)
+  // Add CORS headers
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-API-Key')
   
   return response
 }
@@ -305,7 +307,8 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
+     * Match all request paths including static assets to apply caching
+     * This includes:
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)

@@ -311,14 +311,14 @@ export function HabitAnalyzer() {
       </div>
 
       {/* Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 sm:p-4">
             <div className="flex items-center justify-between">
               <Repeat className="h-4 w-4 text-blue-500" />
-              <span className="text-2xl font-bold text-blue-600">{tradingHabits.length}</span>
+              <span className="text-xl sm:text-2xl font-bold text-blue-600">{tradingHabits.length}</span>
             </div>
-            <p className="text-sm font-medium mt-1">Trading Habits</p>
+            <p className="text-xs sm:text-sm font-medium mt-1">Trading Habits</p>
             <div className="flex items-center gap-1 mt-1">
               <span className="text-xs text-muted-foreground">Identified patterns</span>
             </div>
@@ -326,23 +326,23 @@ export function HabitAnalyzer() {
         </Card>
 
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 sm:p-4">
             <div className="flex items-center justify-between">
               <Brain className="h-4 w-4 text-purple-500" />
-              <span className="text-2xl font-bold text-purple-600">78%</span>
+              <span className="text-xl sm:text-2xl font-bold text-purple-600">78%</span>
             </div>
-            <p className="text-sm font-medium mt-1">Behavior Score</p>
+            <p className="text-xs sm:text-sm font-medium mt-1">Behavior Score</p>
             <Progress value={78} className="h-1 mt-2" />
           </CardContent>
         </Card>
 
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 sm:p-4">
             <div className="flex items-center justify-between">
               <Timer className="h-4 w-4 text-green-500" />
-              <span className="text-2xl font-bold text-green-600">9-11 AM</span>
+              <span className="text-lg sm:text-2xl font-bold text-green-600">9-11 AM</span>
             </div>
-            <p className="text-sm font-medium mt-1">Peak Hours</p>
+            <p className="text-xs sm:text-sm font-medium mt-1">Peak Hours</p>
             <div className="flex items-center gap-1 mt-1">
               <span className="text-xs text-green-600">Most profitable</span>
             </div>
@@ -350,24 +350,26 @@ export function HabitAnalyzer() {
         </Card>
 
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-3 sm:p-4">
             <div className="flex items-center justify-between">
               <Target className="h-4 w-4 text-orange-500" />
-              <span className="text-2xl font-bold text-orange-600">85%</span>
+              <span className="text-xl sm:text-2xl font-bold text-orange-600">85%</span>
             </div>
-            <p className="text-sm font-medium mt-1">Consistency</p>
+            <p className="text-xs sm:text-sm font-medium mt-1">Consistency</p>
             <Progress value={85} className="h-1 mt-2" />
           </CardContent>
         </Card>
       </div>
 
       <Tabs defaultValue="habits" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="habits">Trading Habits</TabsTrigger>
-          <TabsTrigger value="timing">Time Patterns</TabsTrigger>
-          <TabsTrigger value="metrics">Behavior Metrics</TabsTrigger>
-          <TabsTrigger value="personality">Personality</TabsTrigger>
-        </TabsList>
+        <div className="overflow-x-auto">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
+            <TabsTrigger value="habits" className="text-xs sm:text-sm">Trading Habits</TabsTrigger>
+            <TabsTrigger value="timing" className="text-xs sm:text-sm">Time Patterns</TabsTrigger>
+            <TabsTrigger value="metrics" className="text-xs sm:text-sm">Behavior Metrics</TabsTrigger>
+            <TabsTrigger value="personality" className="text-xs sm:text-sm">Personality</TabsTrigger>
+          </TabsList>
+        </div>
 
         <TabsContent value="habits" className="space-y-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

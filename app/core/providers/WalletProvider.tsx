@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from "react";
 
 interface WalletContextType {
@@ -16,21 +18,28 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [selectedWallet, setSelectedWallet] = useState("")
   
   useEffect(() => {
-    // Load wallet from localStorage
-    const savedWallet = localStorage.getItem("connectedWallet")
-    if (savedWallet) {
-      setConnectedWallet(savedWallet)
+    // Ensure this code only runs in the browser
+    if (typeof window !== 'undefined') {
+      // Load wallet from localStorage
+      const savedWallet = localStorage.getItem("connectedWallet")
+      if (savedWallet) {
+        setConnectedWallet(savedWallet)
+      }
     }
   }, [])
   
   const connectWallet = (address: string) => {
     setConnectedWallet(address)
-    localStorage.setItem("connectedWallet", address)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("connectedWallet", address)
+    }
   }
   
   const disconnectWallet = () => {
     setConnectedWallet("")
-    localStorage.removeItem("connectedWallet")
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("connectedWallet")
+    }
   }
   
   return (

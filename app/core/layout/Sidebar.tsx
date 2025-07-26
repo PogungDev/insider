@@ -10,7 +10,7 @@ type SidebarProps = {
 
 export function Sidebar({ setActiveTab }: SidebarProps) {
   const [sidebarOpen, setSidebarOpen] = useState(true)
-  const [expandedGroups, setExpandedGroups] = useState<string[]>(["overview", "wallet-explorer"])
+  const [expandedGroups, setExpandedGroups] = useState<string[]>(["wallet-intelligence-hub"])
 
   const toggleGroup = (groupId: string) => {
     setExpandedGroups(prev => prev.includes(groupId) ? prev.filter(id => id !== groupId) : [...prev, groupId])
@@ -18,6 +18,12 @@ export function Sidebar({ setActiveTab }: SidebarProps) {
 
   // Ultra-Dense Architecture - 5 Main Tabs
   const sidebarItems = [
+  {
+    id: "overview",
+    label: "Overview",
+    icon: Home,
+    subItems: []
+  },
     {
       id: "wallet-intelligence-hub",
       label: "Wallet Intelligence Hub",
@@ -93,7 +99,7 @@ export function Sidebar({ setActiveTab }: SidebarProps) {
           <div key={item.id}>
             <Button
               variant="ghost"
-              className="w-full justify-start mb-1"
+              className="sidebar-button interactive-button"
               onClick={() => {
                 if (item.subItems.length > 0) {
                   toggleGroup(item.id);
@@ -115,7 +121,7 @@ export function Sidebar({ setActiveTab }: SidebarProps) {
                   <Button
                     key={subItem.id}
                     variant="ghost"
-                    className="w-full justify-start text-sm"
+                    className="sidebar-button interactive-button text-sm"
                     onClick={() => setActiveTab(subItem.id)}
                   >
                     <subItem.icon className="mr-2 h-4 w-4" />
@@ -128,7 +134,7 @@ export function Sidebar({ setActiveTab }: SidebarProps) {
         ))}
       </nav>
       <div className="p-4 border-t">
-        <Button variant="outline" className="w-full mb-2" onClick={() => console.log('Disconnect wallet')}>
+        <Button variant="outline" className="w-full mb-2 interactive-button" onClick={() => console.log('Disconnect wallet')}>
           <LogOut className="mr-2 h-4 w-4" />
           {sidebarOpen && "Disconnect Wallet"}
         </Button>
